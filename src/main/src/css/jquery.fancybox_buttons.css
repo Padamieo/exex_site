@@ -1,0 +1,101 @@
+#fancybox-buttons {
+	position: fixed;
+	left: -16px;
+	width: 100%;
+	z-index: 8050;
+	height: 30px;
+}
+
+#fancybox-buttons.top {
+	top: 10px;
+}
+
+#fancybox-buttons.bottom {
+	bottom: 10px;
+}
+
+#fancybox-buttons a#btnPrev{
+	height: 100%;
+	width: 10%;
+	float: left;
+	position: fixed;
+	min-width: 100px;
+	left: 0px;
+	top: 0px;
+	background:url(../images/left-btn.png) no-repeat;
+	background-position: 50% 50%;
+}
+
+#fancybox-buttons a#btnPrev:hover{
+	height: 100%;
+	width: 10%;
+	float: left;
+	position: fixed;
+	min-width: 100px;
+	left: 0px;
+	top: 0px;
+	background:url(../images/left-btn.png) no-repeat;
+	background-position: 50% 50%;
+	background-color: rgba(1,1,1,0.5);
+}
+
+#fancybox-buttons a#btnNext{
+	height: 100%;
+	width: 10%;
+	min-width: 100px;
+	float: right;
+	position: fixed;
+	right: 16px;
+	top: 0px;
+	background:url(../images/right-btn.png) no-repeat;
+	background-position: 50% 50%;
+}
+#fancybox-buttons a#btnNext:hover{
+	background:url(../images/right-btn.png) no-repeat;
+	background-position: 50% 50%;
+	background-color: rgba(1,1,1,0.5);
+}
+
+#fancybox-buttons ul {
+	display: block;
+	width: 204px;
+	margin: auto auto;
+	padding: 0;
+	padding-top: 5px;
+	list-style: none;
+}
+
+#fancybox-buttons ul li {
+	float: left;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	height: 20px;
+	min-width: 50px;
+	border-left: 1px solid #000;
+}
+
+#fancybox-buttons li:first-child{
+	border: none;
+}
+
+#fancybox-buttons a {
+	display: block;
+	width: 50px;
+	height: 20px;
+	background-repeat: no-repeat;
+	outline: none;
+	opacity: 0.8;
+	color: rgb(28,204,204);
+	text-align: center;
+}
+
+#fancybox-buttons a:hover {
+	opacity: 1;
+	color: #FFF;
+}
+
+#fancybox-buttons a.btnDisabled {
+	opacity : 0.4;
+	cursor: default;
+}

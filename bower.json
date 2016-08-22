@@ -1,0 +1,16 @@
+{
+  "name": "<%= pkg.name %>",
+  "version": "<%= pkg.version %>",
+  "dependencies": {
+    "wordpress": "*",
+    "jquery": "~1.10.2",
+    "masonry": "3.3.2",
+    "fancyBox": "2.1.5",
+    "swipebox": "*"
+  },
+  "private": true,
+  "devDependencies": {
+    "ninja-forms": "svn+http://plugins.svn.wordpress.org/ninja-forms/#2.9.37",
+    "wordpress-seo": "svn+http://plugins.svn.wordpress.org/wordpress-seo/#2.3.5"
+  }
+}

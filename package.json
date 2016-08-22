@@ -1,0 +1,26 @@
+{
+	"name": "niss_theme",
+	"themes": "../build/wp-content/themes/",
+	"version": "0.0.1",
+	"author": "Michaél Adam Lockwood",
+	"private": true,
+	"devDependencies": {
+		"grunt": "~0.4.0",
+		"grunt-contrib-imagemin": "*",
+		"grunt-contrib-compass": "*",
+		"grunt-contrib-cssmin": "*",
+		"grunt-contrib-clean": "*",
+		"grunt-contrib-copy": "*",
+		"grunt-contrib-uglify": "*",
+		"grunt-contrib-watch": "*",
+		"grunt-browser-sync": "*",
+		"grunt-newer": "*",
+		"grunt-contrib-less": "*"
+	},
+	"dependencies": {
+		"time-grunt": "*",
+		"bower": "*",
+		"load-grunt-tasks": "*",
+		"grunt-run": "*"
+	}
+}
