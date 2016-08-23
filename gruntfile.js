@@ -12,7 +12,7 @@ module.exports = function(grunt){
         files:[{
           cwd: 'bower_components/wordpress/',
           src: ['**'],
-          dest: '../build/',
+          dest: 'build/',
           nonull: false,
           expand: true,
           flatten: false,
@@ -24,7 +24,8 @@ module.exports = function(grunt){
 					cwd: 'bower_components/',
 					src: [
 						'ninja-forms/**',
-						'wp-maintenance-mode/**'
+						'wp-maintenance-mode/**',
+            'bbpress/**'
 					],
 					dest: 'build/wp-content/plugins/',
 					nonull: false,
@@ -87,5 +88,14 @@ module.exports = function(grunt){
     'copy:plugins',
     'run:setup'
   ]);
+
+  grunt.registerTask('wordpress', [
+    'copy:build_wordpress'
+  ]);
+
+  grunt.registerTask('plugins', [
+    'copy:plugins'
+  ])
+
 
 };
