@@ -1,0 +1,115 @@
+<?php
+
+	// Add RSS links to <head> section
+	//add_theme_support('automatic-feed-links') ;
+
+  // Load websites CSS and fonts
+  add_action("wp_enqueue_scripts", "enqueue_niss_styles", 1);
+  function enqueue_niss_styles() {
+  	if ( !is_admin() ) {
+  		wp_register_style('css.style', (get_template_directory_uri()."/css/style.css"),false,false,false);
+  		//wp_register_style('font.ubuntu', ('http://fonts.googleapis.com/css?family=Ubuntu:300,400,700'),false,false,false);
+
+  		wp_enqueue_style('css.style');
+  		//wp_enqueue_style('font.ubuntu');
+
+  	}
+  }
+
+	function enqueue_niss_scripts() {
+	if ( !is_admin() ) {
+	  wp_deregister_script('jquery');
+
+	  wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js", false, null, false);
+		wp_register_script('niss_scripts', get_template_directory_uri() . '/js/scripts.js', 'jquery',  null, false);
+
+		wp_enqueue_script('jquery');
+		wp_enqueue_script('niss_scripts');
+	}
+}
+add_action("wp_enqueue_scripts", "enqueue_niss_scripts", 0);
+
+	//make scripts load asynchronously
+	function make_script_async( $tag, $handle, $src ){
+	  if ( !is_admin() ) {
+	    return str_replace( ' src', 'defer="defer" src', $tag );
+	  }else{
+	    return $tag;
+	  }
+	}
+	add_filter( 'script_loader_tag', 'make_script_async', 10, 3 );
+
+	//this will check if site is live or not
+	function is_live(){
+		if('http://nothingisstillsomething.co.uk' == get_site_url()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	//add livereload script to the footer provided sites not live
+	function livereload() {
+	  if(!is_live()){
+	    wp_enqueue_script( 'livereload', '//localhost:35729/livereload.js', false, false, true );
+	  }
+	}
+	add_action( 'wp_enqueue_scripts', 'livereload' );
+
+	// content width
+	if ( !isset( $content_width ))  {
+		$content_width = 710;
+	}
+
+	// Clean up the <head>
+	function removeHeadLinks() {
+    	remove_action('wp_head', 'rsd_link');
+    	remove_action('wp_head', 'wlwmanifest_link');
+			remove_action( 'wp_head', 'feed_links_extra', 3 ); // removes RSS links added by Padam
+			remove_action( 'wp_head', 'feed_links', 2 ); // removes RSS links added by Padam
+    }
+    add_action('init', 'removeHeadLinks');
+    remove_action('wp_head', 'wp_generator');
+
+	// Niss post thumbnails
+	add_theme_support( 'post-thumbnails' );
+	add_image_size('summary-image', 310, 9999);
+	add_image_size('detail-image', 770, 9999);
+
+
+    // menu
+	add_action( 'init', 'register_niss_menu' );
+
+	function register_niss_menu() {
+		register_nav_menu( 'main_nav', __( 'Main Menu' ) );
+	}
+
+  //setup footer widget area
+	if (function_exists('register_sidebar')) {
+  	register_sidebar(array(
+  		'name' => 'Footer',
+  		'id'   => 'niss_footer',
+  		'description'   => 'Footer Widget Area',
+  		'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-copy">',
+  		'after_widget'  => '</div></div>',
+  		'before_title'  => '<h3>',
+  		'after_title'   => '</h3>'
+  	));
+	}
+
+	// hide blank excerpts
+	function custom_excerpt_length( $length ) {
+		return 0;
+	}
+	add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
+	function new_excerpt_more($more) {
+    global $post;
+		return '';
+	}
+	add_filter('excerpt_more', 'new_excerpt_more');
+
+	// Add Post Formats Support
+	add_theme_support( 'post-formats', array( 'aside', 'video', 'quote', 'link', 'image', 'gallery') );
+  
+?>
