@@ -46,12 +46,12 @@ module.exports = function(grunt){
 			options:{
 				banner: '/*build/wp-content/themes/ V<%= pkg.version %> made on <%= grunt.template.today("yyyy-mm-dd") %>*/\r',
 				mangle: true,
-        beautify: true
+        beautify: false
 			},
 			target:{
 				files:{
 					'build/wp-content/themes/motg/js/scripts.js': [
-						'src/motg/src/js/test.js',
+						'bower_components/baffle/dist/baffle.min.js',
             'src/motg/src/js/functions.js'
 						]
 				}
@@ -116,10 +116,6 @@ module.exports = function(grunt){
     'less:live'
   ]);
 
-  grunt.registerTask('b', [
-    'copy:build_theme'
-  ]);
-
   // updates everything theme related
 	grunt.registerTask("update", [
     'newer:copy:build_theme',
@@ -130,6 +126,8 @@ module.exports = function(grunt){
   ]);
 
 	grunt.registerTask("default", ['watch']);
+
+  grunt.registerTask('js', ['uglify']);
 
   grunt.registerTask("css", ['less:live']);
 

@@ -1,33 +1,27 @@
 <?php
 
-	// Add RSS links to <head> section
-	//add_theme_support('automatic-feed-links') ;
-
-  // Load websites CSS and fonts
+  // load website css
   add_action("wp_enqueue_scripts", "enqueue_niss_styles", 1);
   function enqueue_niss_styles() {
   	if ( !is_admin() ) {
   		wp_register_style('css.style', (get_template_directory_uri()."/css/style.css"),false,false,false);
-  		//wp_register_style('font.ubuntu', ('http://fonts.googleapis.com/css?family=Ubuntu:300,400,700'),false,false,false);
-
   		wp_enqueue_style('css.style');
-  		//wp_enqueue_style('font.ubuntu');
-
   	}
   }
 
+  // load website js and jquery
 	function enqueue_niss_scripts() {
-	if ( !is_admin() ) {
-	  wp_deregister_script('jquery');
+  	if ( !is_admin() ) {
+  	  wp_deregister_script('jquery');
 
-	  wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js", false, null, false);
-		wp_register_script('niss_scripts', get_template_directory_uri() . '/js/scripts.js', 'jquery',  null, false);
+  	  wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js", false, null, false);
+  		wp_register_script('niss_scripts', get_template_directory_uri() . '/js/scripts.js', 'jquery',  null, false);
 
-		wp_enqueue_script('jquery');
-		wp_enqueue_script('niss_scripts');
-	}
-}
-add_action("wp_enqueue_scripts", "enqueue_niss_scripts", 0);
+  		wp_enqueue_script('jquery');
+  		wp_enqueue_script('niss_scripts');
+  	}
+  }
+  add_action("wp_enqueue_scripts", "enqueue_niss_scripts", 0);
 
 	//make scripts load asynchronously
 	function make_script_async( $tag, $handle, $src ){
@@ -56,32 +50,20 @@ add_action("wp_enqueue_scripts", "enqueue_niss_scripts", 0);
 	}
 	add_action( 'wp_enqueue_scripts', 'livereload' );
 
-	// content width
-	if ( !isset( $content_width ))  {
-		$content_width = 710;
-	}
+	// clean up / remove unused rss and blog things
+  function removeHeadLinks() {
+    remove_action('wp_head', 'rsd_link');
+    remove_action('wp_head', 'wlwmanifest_link');
+    remove_action( 'wp_head', 'feed_links_extra', 3 );
+    remove_action( 'wp_head', 'feed_links', 2 );
+  }
+  add_action('init', 'removeHeadLinks');
+  remove_action('wp_head', 'wp_generator');
 
-	// Clean up the <head>
-	function removeHeadLinks() {
-    	remove_action('wp_head', 'rsd_link');
-    	remove_action('wp_head', 'wlwmanifest_link');
-			remove_action( 'wp_head', 'feed_links_extra', 3 ); // removes RSS links added by Padam
-			remove_action( 'wp_head', 'feed_links', 2 ); // removes RSS links added by Padam
-    }
-    add_action('init', 'removeHeadLinks');
-    remove_action('wp_head', 'wp_generator');
-
-	// Niss post thumbnails
-	add_theme_support( 'post-thumbnails' );
-	add_image_size('summary-image', 310, 9999);
-	add_image_size('detail-image', 770, 9999);
-
-
-    // menu
-	add_action( 'init', 'register_niss_menu' );
-
-	function register_niss_menu() {
-		register_nav_menu( 'main_nav', __( 'Main Menu' ) );
+  // setup main menu
+	add_action( 'init', 'register_main_menu' );
+	function register_main_menu() {
+  	register_nav_menu( 'main_nav', __( 'Main Menu' ) );
 	}
 
   //setup footer widget area
@@ -111,5 +93,5 @@ add_action("wp_enqueue_scripts", "enqueue_niss_scripts", 0);
 
 	// Add Post Formats Support
 	add_theme_support( 'post-formats', array( 'aside', 'video', 'quote', 'link', 'image', 'gallery') );
-  
+
 ?>

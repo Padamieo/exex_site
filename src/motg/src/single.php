@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 	<?php if (have_posts()) : while (have_posts()) : the_post();
-
+	echo 'post'.get_post_format();
 		get_template_part( 'content', get_post_format() );
 	?>
 		<?php /*
@@ -25,9 +25,9 @@
 	   */ ?>
 	<?php endwhile; endif; ?>
 
-       <div class="post-nav">
-               <div class="post-prev"><?php previous_post_link('%link'); ?> </div>
-			   <div class="post-next"><?php next_post_link('%link'); ?></div>
-        </div>
-
+	<div class="post-nav">
+		<div class="post-prev"><?php previous_post_link('%link'); ?> </div>
+		<div class="post-next"><?php next_post_link('%link'); ?></div>
+	</div>
+<?php echo Paypal_payment_accept(); ?>
 <?php get_footer(); ?>
