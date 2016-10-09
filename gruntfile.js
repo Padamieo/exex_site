@@ -25,6 +25,7 @@ module.exports = function(grunt){
 					src: [
 						'ninja-forms/**',
 						'wp-maintenance-mode/**',
+            'woocommerce/**',
             'bbpress/**'
 					],
 					dest: 'build/wp-content/plugins/',

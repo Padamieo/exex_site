@@ -2,7 +2,7 @@
   "name": "exex_sites",
   "version": "0.0.1",
   "dependencies": {
-    "wordpress": "4.6",
+    "wordpress": "4.6.1",
     "jquery": "~1.10.2",
     "masonry": "3.3.2",
     "fancyBox": "2.1.5",
@@ -15,6 +15,7 @@
     "profile-builder": "svn+http://plugins.svn.wordpress.org/profile-builder/#2.4.5",
     "bbpress": "svn+http://plugins.svn.wordpress.org/bbpress/#2.5.10",
     "wordpress-social-login" : "svn+http://plugins.svn.wordpress.org/wordpress-social-login/#2.2.3",
-    "baffle": "http://github.com/camwiegert/baffle.git"
+    "baffle": "http://github.com/camwiegert/baffle",
+    "woocommerce": "svn+http://plugins.svn.wordpress.org/woocommerce/#2.6.4"
   }
 }
