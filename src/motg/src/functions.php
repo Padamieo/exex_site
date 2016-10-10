@@ -94,4 +94,7 @@
 	// Add Post Formats Support
 	add_theme_support( 'post-formats', array( 'aside', 'video', 'quote', 'link', 'image', 'gallery') );
 
+  //load in our woocommerce elements
+  include_once(ABSPATH . 'wp-content/themes/motg/woocommercef.php');
+
 ?>

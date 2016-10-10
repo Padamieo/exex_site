@@ -23,8 +23,8 @@ module.exports = function(grunt){
 				files:[{
 					cwd: 'bower_components/',
 					src: [
+            'wp-maintenance-mode/**',
 						'ninja-forms/**',
-						'wp-maintenance-mode/**',
             'woocommerce/**',
             'bbpress/**'
 					],

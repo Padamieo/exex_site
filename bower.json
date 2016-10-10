@@ -10,12 +10,12 @@
   },
   "private": true,
   "devDependencies": {
-    "ninja-forms": "svn+http://plugins.svn.wordpress.org/ninja-forms/#2.9.37",
-    "wordpress-seo": "svn+http://plugins.svn.wordpress.org/wordpress-seo/#2.3.5",
-    "profile-builder": "svn+http://plugins.svn.wordpress.org/profile-builder/#2.4.5",
+    "ninja-forms": "svn+http://plugins.svn.wordpress.org/ninja-forms/#3.0.7",
+    "wordpress-seo": "svn+http://plugins.svn.wordpress.org/wordpress-seo/#3.6.1",
     "bbpress": "svn+http://plugins.svn.wordpress.org/bbpress/#2.5.10",
     "wordpress-social-login" : "svn+http://plugins.svn.wordpress.org/wordpress-social-login/#2.2.3",
     "baffle": "http://github.com/camwiegert/baffle",
-    "woocommerce": "svn+http://plugins.svn.wordpress.org/woocommerce/#2.6.4"
+    "woocommerce": "svn+http://plugins.svn.wordpress.org/woocommerce/#2.6.4",
+    "wp-maintenance-mode": "svn+http://plugins.svn.wordpress.org/wp-maintenance-mode/#2.0.8"
   }
 }
