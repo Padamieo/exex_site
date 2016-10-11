@@ -29,5 +29,5 @@
 		<div class="post-prev"><?php previous_post_link('%link'); ?> </div>
 		<div class="post-next"><?php next_post_link('%link'); ?></div>
 	</div>
-<?php echo Paypal_payment_accept(); ?>
+	
 <?php get_footer(); ?>

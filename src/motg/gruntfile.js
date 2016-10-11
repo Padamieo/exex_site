@@ -21,8 +21,8 @@ module.exports = function(grunt){
 
 		watch: {
 			options: {
-			  livereload: true,
-        spawn: false,
+			  livereload: 1337,
+        spawn: false
 			},
 			js:{
 				files: ['src/motg/src/**/*.js'],

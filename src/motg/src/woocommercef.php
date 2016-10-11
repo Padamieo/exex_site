@@ -3,7 +3,7 @@
 add_filter('woocommerce_sale_flash', 'owoo_custom_hide_sales_flash');
 function owoo_custom_hide_sales_flash()
 {
-    return '<div>boop</div>';
+    return '<div class="early">Early Bird Price</div>';
 }
 
 add_filter( 'woocommerce_page_title', 'woo_shop_page_title');

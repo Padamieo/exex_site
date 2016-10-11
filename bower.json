@@ -14,7 +14,7 @@
     "wordpress-seo": "svn+http://plugins.svn.wordpress.org/wordpress-seo/#3.6.1",
     "bbpress": "svn+http://plugins.svn.wordpress.org/bbpress/#2.5.10",
     "wordpress-social-login" : "svn+http://plugins.svn.wordpress.org/wordpress-social-login/#2.2.3",
-    "baffle": "http://github.com/camwiegert/baffle",
+    "baffle": "https://github.com/camwiegert/baffle.git",
     "woocommerce": "svn+http://plugins.svn.wordpress.org/woocommerce/#2.6.4",
     "wp-maintenance-mode": "svn+http://plugins.svn.wordpress.org/wp-maintenance-mode/#2.0.8"
   }

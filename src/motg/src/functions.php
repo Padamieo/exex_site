@@ -45,7 +45,7 @@
 	//add livereload script to the footer provided sites not live
 	function livereload() {
 	  if(!is_live()){
-	    wp_enqueue_script( 'livereload', '//localhost:35729/livereload.js', false, false, true );
+	    wp_enqueue_script( 'livereload', '//localhost:1337/livereload.js', false, false, true );
 	  }
 	}
 	add_action( 'wp_enqueue_scripts', 'livereload' );
