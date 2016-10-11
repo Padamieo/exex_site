@@ -191,10 +191,13 @@ a{
     margin:0px;
     margin-bottom:5px;
     margin-top:5px;
-    color: rgba(187,0,1,0.8);
+    //color: rgba(187,0,1,0.8);
+    color: rgba(187,0,1,0.1);
+    text-shadow: 0 0 0.2em #fff;
     .transition(color 0.5s ease);
     &:hover{
       color: rgba(255,255,255,0.7);
+
       text-shadow: 0 0 0.2em #fff;
     }
   }
@@ -204,11 +207,10 @@ a{
 .subtitle {
   padding: 1vw;
   padding-top: 6vw;
+  box-sizing: border-box;
 
   float: left;
   width: 100%;
-
-
 
   p{
     font-family: 'rune';
@@ -266,7 +268,10 @@ a{
 
       a{
         display:block;
-        margin:1vw;
+        margin: 0.3vw;
+        @media screen and (max-width: 700px) {
+          margin: 1vw;
+        }
         padding: 0.5vw 1vw;
         // background:rgba(69,69,69,0.4);
         // border: 1px solid rgb(69,69,69);
@@ -391,7 +396,6 @@ a{
   @media screen and (min-width: 1200px) {
     max-width: 1000px;
   }
-
 }
 
 .font{
