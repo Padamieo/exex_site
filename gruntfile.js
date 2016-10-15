@@ -72,13 +72,28 @@ module.exports = function(grunt){
 			}
 		},
     run: {
-      options: {
-        wait: true,
-        cwd: 'src/main/',
+      main:{
+        options: {
+          wait: true,
+          cwd: 'src/main/',
+        },
+        exec: "grunt build"
       },
-      setup: {
+      motg:{
+        options: {
+          wait: true,
+          cwd: 'src/motg/',
+        },
+        exec: "grunt build"
+      },
+      aime:{
+        options: {
+          wait: true,
+          cwd: 'src/aime/',
+        },
         exec: "grunt build"
       }
+
     }
 
 	});
@@ -87,7 +102,8 @@ module.exports = function(grunt){
 	grunt.registerTask('default', [
     'copy:build_wordpress',
     'copy:plugins',
-    'run:setup'
+    'run:main',
+    'run:motg'
   ]);
 
   grunt.registerTask('wordpress', [

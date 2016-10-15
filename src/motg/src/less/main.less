@@ -9,10 +9,14 @@ body {
   padding: 0;
 }
 
-/* font styles */
 @font-face {
-  font-family: 'rune';
-  src: url('../fonts/rune.ttf') format('truetype');
+  font-family: 'runeregular';
+  src: url('rune-webfont.eot');
+  src: url('rune-webfont.eot?#iefix') format('embedded-opentype'),
+       url('rune-webfont.woff2') format('woff2'),
+       url('rune-webfont.woff') format('woff'),
+       url('rune-webfont.ttf') format('truetype'),
+       url('rune-webfont.svg#runeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -167,7 +171,6 @@ a{
   float: left;
   width: 100%;
 
-
   p{
     font-family: 'kontanter';
     font-size: calc(15px + 5.5vw);
@@ -191,13 +194,11 @@ a{
     margin:0px;
     margin-bottom:5px;
     margin-top:5px;
-    //color: rgba(187,0,1,0.8);
-    color: rgba(187,0,1,0.1);
+    color: rgba(255,255,255,0.7);
     text-shadow: 0 0 0.2em #fff;
     .transition(color 0.5s ease);
     &:hover{
-      color: rgba(255,255,255,0.7);
-
+      color:  rgba(187,0,1,0.6);
       text-shadow: 0 0 0.2em #fff;
     }
   }
@@ -213,7 +214,7 @@ a{
   width: 100%;
 
   p{
-    font-family: 'rune';
+    font-family: 'rune-webfont';
     margin: 0px;
     padding: 0px;
     font-size: calc(12px + 2vw);
@@ -233,7 +234,6 @@ a{
   position: relative;
   padding: 0px;
   margin: 0px;
-  border: 1px solid pink;
   ul{
     clear:left;
     float:left;
@@ -280,8 +280,8 @@ a{
         background:rgba(255,255,255,0.2);
 
         color: #fff;
-        .transition(background-color 0.5s ease);
-        .transition(border 0.5s ease);
+        .transition(background-color 0.5s ease-in-out);
+        .transition(border 0.5s ease-in-out);
 
         &:hover{
           // border: 1px solid #fff;
@@ -304,7 +304,6 @@ a{
   .transition(margin 0.5s ease);
 
   @media screen and (max-width: 700px) {
-    border: 1px solid green;
     margin-top: 1vw;
     margin-bottom: 1vw;
   }
@@ -318,6 +317,9 @@ a{
     position:relative;
     left:50%;
     text-align:center;
+    @media screen and (max-width: 700px) {
+      width: 100%;
+    }
 
     li{
       font-size: calc(15px + 0.5vw);
@@ -405,31 +407,46 @@ a{
 
 
 /* account styles */
-.button{
-  padding: 5px 16px;
-  background: rgba(69, 69, 69, 0.4);
-  border: 1px solid #454545;
-  font-size: 15px;
-}
+// .button{
+//   padding: 5px 16px;
+//   background: rgba(69, 69, 69, 0.4);
+//   border: 1px solid #454545;
+//   font-size: 15px;
+// }
+//
+// .bbp-form{
+//   display: block;
+//   position: relative;
+//   border: none;
+//   background: #eee;
+//   padding: 10px 18px;
+//
+//   .bbp-email, .bbp-username{
+//     display: flex;
+//     flex-wrap: wrap;
+//     input{
+//       border: 1px solid rgba(69, 69, 69, 0.4);
+//       flex-grow: 1;
+//     }
+//   }
+//
+//
+// }
 
-.bbp-form{
+.clearfix:after {
+  visibility: hidden;
   display: block;
-  position: relative;
-  border: none;
-  background: #eee;
-  padding: 10px 18px;
-
-  .bbp-email, .bbp-username{
-    display: flex;
-    flex-wrap: wrap;
-    input{
-      border: 1px solid rgba(69, 69, 69, 0.4);
-      flex-grow: 1;
-    }
-  }
-
-
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
 }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+
+
 .woocommerce{
   form.login, form.register{
     border: 1px solid rgba(69, 69, 69, 0.4) !important;
@@ -441,4 +458,10 @@ a{
   padding: 10px 18px;
   border: 1px solid rgba(69, 69, 69, 0.4);
   background: rgba(250, 255, 189, 0.4);
+}
+
+
+
+.single_add_to_cart_button, .add_to_cart_button{
+  padding: 1em 1em !important;
 }
