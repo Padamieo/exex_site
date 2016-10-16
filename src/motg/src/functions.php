@@ -113,4 +113,16 @@
   //Remove feed link from header
   remove_action( 'wp_head', 'feed_links_extra', 3 ); //Extra feeds such as category feeds
   remove_action( 'wp_head', 'feed_links', 2 ); // General feeds: Post and Comment Feed
+
+  // function mm_style($styles) {
+  //   $styles['new-style'] = 'path_to_css_file/style.css';
+  // return $styles;
+  // }
+  // add_filter('wpmm_styles', 'mm_style');
+  //
+  // function mm_script($styles) {
+  //   $styles['new-style'] = 'path_to_css_file/style.css';
+  //   return $styles;
+  // }
+  // add_filter('wpmm_scripts', 'mm_script');
 ?>

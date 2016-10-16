@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 
 	<!-- meta -->
-  <?php
-  function is_landing_page(){
-    global $template;
-    return (strpos($template, 'page-landing') !== false ? 'class="landing"' : '');
-  }
-
-  ?>
-
-  <html <?php language_attributes();?> <?php echo is_landing_page(); ?>>
+  <html <?php language_attributes();?> class="landing" >
 	<meta charset="<?php bloginfo('charset'); ?>" />
 
 	<title><?php bloginfo('sitename'); ?> <?php wp_title(); ?></title>

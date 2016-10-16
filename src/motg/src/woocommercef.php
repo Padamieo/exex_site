@@ -42,4 +42,26 @@ function custom_my_account_menu_items( $items ) {
 }
 add_filter( 'woocommerce_account_menu_items', 'custom_my_account_menu_items' );
 
+
+function so_27030769_maybe_empty_cart( $valid, $product_id, $quantity ) {
+  if( ! empty ( WC()->cart->get_cart() ) && $valid ){
+    WC()->cart->empty_cart();
+    wc_add_notice( 'Whoa hold up. You can only have 1 item in your cart', 'error' );
+  }
+  return $valid;
+}
+add_filter( 'woocommerce_add_to_cart_validation', 'so_27030769_maybe_empty_cart', 10, 3 );
+
+// function my_custom_add_to_cart_redirect( $url ) {
+// 	$url = WC()->get_cart_url();
+// 	// $url = wc_get_checkout_url(); // since WC 2.5.0
+// 	return $url;
+// }
+// add_filter( 'woocommerce_add_to_cart_redirect', 'my_custom_add_to_cart_redirect' );
+
+add_filter( 'woocommerce_checkout_fields' , 'alter_woocommerce_checkout_fields' );
+function alter_woocommerce_checkout_fields( $fields ) {
+  unset($fields['billing']['billing_company']); // remove the option to enter in a company
+  return $fields;
+}
 ?>

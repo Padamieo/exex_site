@@ -1,5 +1,5 @@
 <?php /* Template Name: Example Template */ ?>
-<?php get_header(); ?>
+<?php get_header('landing'); ?>
 
 	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
@@ -12,8 +12,8 @@
    			<div class="pagebody">
           <h1 class="font"><?php the_title(); ?></h1>
      		 	<?php the_content(); ?>
-					<?php wp_link_pages(); ?>
-					<?php comments_template(); ?>
+					<?php //wp_link_pages(); ?>
+					<?php //comments_template(); ?>
      		</div>
 
        </div>
