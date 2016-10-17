@@ -39,11 +39,11 @@
       <div id="nav"><ul><?php wp_list_pages("depth=1&title_li=");  ?></ul></div>
     <?php }
 
-    //if ( is_active_sidebar( 'motg_landing') ) {
+    if ( is_active_sidebar( 'motg_landing') ) {
       echo '<div id="landing-area">';
       dynamic_sidebar( 'motg_landing' );
       echo '</div>';
-    //}
+    }
 
     ?>
 
