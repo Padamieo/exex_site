@@ -26,7 +26,8 @@ module.exports = function(grunt){
             'wp-maintenance-mode/**',
 						'ninja-forms/**',
             'woocommerce/**',
-            'bbpress/**'
+            'bbpress/**',
+            'yith-woocommerce-social-login/**'
 					],
 					dest: 'build/wp-content/plugins/',
 					nonull: false,

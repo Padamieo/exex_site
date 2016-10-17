@@ -16,6 +16,7 @@
     "wordpress-social-login" : "svn+http://plugins.svn.wordpress.org/wordpress-social-login/#2.2.3",
     "baffle": "https://github.com/camwiegert/baffle.git",
     "woocommerce": "svn+http://plugins.svn.wordpress.org/woocommerce/#2.6.4",
-    "wp-maintenance-mode": "svn+http://plugins.svn.wordpress.org/wp-maintenance-mode/#2.0.8"
+    "wp-maintenance-mode": "svn+http://plugins.svn.wordpress.org/wp-maintenance-mode/#2.0.8",
+    "yith-woocommerce-social-login" : "svn+http://plugins.svn.wordpress.org/yith-woocommerce-social-login/#1.0.9"
   }
 }
