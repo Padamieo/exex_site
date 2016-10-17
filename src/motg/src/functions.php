@@ -71,13 +71,23 @@
 	if (function_exists('register_sidebar')) {
   	register_sidebar(array(
   		'name' => 'Footer',
-  		'id'   => 'niss_footer',
+  		'id'   => 'motg_footer',
   		'description'   => 'Footer Widget Area',
   		'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-copy">',
   		'after_widget'  => '</div></div>',
   		'before_title'  => '<h3>',
   		'after_title'   => '</h3>'
   	));
+
+    register_sidebar(array(
+      'name' => 'landing',
+      'id'   => 'motg_landing',
+      'description'   => 'Landing Widget Area',
+      'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-copy">',
+      'after_widget'  => '</div></div>',
+      'before_title'  => '<h3>',
+      'after_title'   => '</h3>'
+    ));
 	}
 
 	// hide blank excerpts

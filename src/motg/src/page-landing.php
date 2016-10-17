@@ -1,4 +1,4 @@
-<?php /* Template Name: Example Template */ ?>
+<?php /* Template Name: landing page */ ?>
 <?php get_header('landing'); ?>
 
 	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>

@@ -11,12 +11,12 @@ body {
 
 @font-face {
   font-family: 'runeregular';
-  src: url('rune-webfont.eot');
-  src: url('rune-webfont.eot?#iefix') format('embedded-opentype'),
-       url('rune-webfont.woff2') format('woff2'),
-       url('rune-webfont.woff') format('woff'),
-       url('rune-webfont.ttf') format('truetype'),
-       url('rune-webfont.svg#runeregular') format('svg');
+  src: url('../fonts/rune-webfont.eot');
+  src: url('../fonts/rune-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/rune-webfont.woff2') format('woff2'),
+       url('../fonts/rune-webfont.woff') format('woff'),
+       url('../fonts/rune-webfont.ttf') format('truetype'),
+       url('../fonts/rune-webfont.svg#runeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -164,6 +164,32 @@ a{
   body, #wrap, #header{
     height: 100%;
   }
+
+  #header{
+    .current_page_item{
+      a{
+        // border: 1px solid #fff;
+        // background:rgba(255,255,255,0.2);
+        // color: #fff;
+        //need subtler way to indicate page we are on
+      }
+    }
+
+    #landing-area{
+      width: 100%;
+      box-sizing: border-box;
+      padding: 1vw;
+      //border: 1px solid green;
+
+      &, p, h3{
+        color: #fff;
+        text-align: center;
+      }
+      p{
+        font-size: calc(12px + 0.3vw);
+      }
+    }
+  }
 }
 
 #wrap {
@@ -222,7 +248,7 @@ a{
   width: 100%;
 
   p{
-    font-family: 'rune-webfont';
+    font-family: 'runeregular';
     margin: 0px;
     padding: 0px;
     font-size: calc(12px + 2vw);
@@ -307,8 +333,10 @@ a{
   width: 100%;
   overflow: hidden;
   position: relative;
-  margin-top: 7vw;
-  margin-bottom: 7vw;
+
+  padding-top: 1vw;
+  padding-bottom: 2vw;
+
   .transition(margin 0.5s ease);
 
   @media screen and (max-width: 700px) {

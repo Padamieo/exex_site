@@ -1,8 +1,8 @@
 
 	<?php
-		if ( is_active_sidebar( 'niss_footer')) {
+		if ( is_active_sidebar( 'motg_footer')) {
 	  	echo '<div id="footer-area">';
-			dynamic_sidebar( 'niss_footer' );
+			dynamic_sidebar( 'motg_footer' );
 	    echo '</div>';
 		}
 	?>

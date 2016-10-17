@@ -12,7 +12,7 @@
           <h1 class="font"><?php the_title(); ?></h1>
      		 	<?php the_content(); ?>
 					<?php wp_link_pages(); ?>
-					<?php comments_template(); ?>
+					<?php //comments_template(); ?>
      		</div>
 
        </div>
