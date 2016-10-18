@@ -27,7 +27,7 @@ module.exports = function(grunt){
 						'ninja-forms/**',
             'woocommerce/**',
             'bbpress/**',
-            'yith-woocommerce-social-login/**'
+            'wordpress-social-login/**'
 					],
 					dest: 'build/wp-content/plugins/',
 					nonull: false,
