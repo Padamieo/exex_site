@@ -1,0 +1,470 @@
+
+body {
+  background:#eee;
+  font-size:12px;
+  line-height:20px;
+  font-family: @site_font_family;
+  font-weight:normal;
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: 'runeregular';
+  src: url('../fonts/rune-webfont.eot');
+  src: url('../fonts/rune-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/rune-webfont.woff2') format('woff2'),
+       url('../fonts/rune-webfont.woff') format('woff'),
+       url('../fonts/rune-webfont.ttf') format('truetype'),
+       url('../fonts/rune-webfont.svg#runeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1{
+  font-size: @font-size-h1;
+  line-height:41px;
+  color:#000000;
+  padding:0px;
+  margin:0px;
+  font-weight:normal;
+  margin-bottom:5px;
+  margin-top:5px;
+}
+h2{
+  font-size:20px;
+  line-height:23px;
+  color:#000000;
+  padding:0px;
+  margin:0px;
+  font-weight:normal;
+  margin-bottom:5px;
+  margin-top:10px;
+}
+h3{
+  font-size:15px;
+  line-height:25px;
+  color:#858585;
+  padding:0px;
+  margin:0px;
+  font-weight:normal;
+}
+h4{
+  font-size:15px;
+  line-height:25px;
+  color:#000000;
+  padding:0px;
+  margin:0px;
+  font-weight:normal;
+  font-weight:bold;
+}
+h5{
+  font-size:13px;
+  line-height:22px;
+  color:#000000;
+  padding:0px;
+  margin:0px;
+  font-weight:normal;
+}
+h6{
+  font-size:12px;
+  line-height:22px;
+  color:#858585;
+  padding:0px;
+  margin:0px;
+  font-weight:normal;
+}
+p{
+  font-size:12px;
+  color:#454545;
+  line-height:18px;
+  margin:0px;
+  padding:0px;
+  padding-top:8px;
+  padding-bottom:8px;
+  font-family:'Helvetica', Arial, Helvetica, sans-serif;
+}
+
+/* list Styles */
+ul{
+  padding:0px;
+  margin:0;
+  margin-left:0px;
+  font-family:'Helvetica',Arial, Helvetica, sans-serif;
+  margin-top:10px;
+}
+ul li{
+  font-size:12px;
+  color:#858585;
+  padding-left:10px;
+  margin-bottom:7px;
+  list-style:inside;
+  list-style-type:square;
+}
+ol{
+  padding:0px;
+  margin:0;
+  margin-left:25px;
+  font-family:'Helvetica',Arial, Helvetica, sans-serif;
+  margin-top:10px;
+}
+ol li {
+  font-size:12px;
+  color:#858585;
+  padding-left:10px;
+  margin-bottom:7px;
+  list-style-type: decimal;
+}
+hr{
+  /*background:url(../img/hr.jpg) top center no-repeat;*/
+  border:0;
+  outline:0;
+  clear:both;
+  height:10px;
+}
+
+/* link styles */
+a{
+  &:link{
+    color:#444444;
+    text-decoration: none;
+  }
+  &:visited{
+    color:#444444;
+    text-decoration: none;
+  }
+  &:hover{
+    color: #1CCCCC;
+    text-decoration: none;
+  }
+  &:active{
+    color:#444444;
+    text-decoration: none;
+  }
+  &:focus{
+    outline-style: none;
+  }
+}
+
+
+.landing{
+  height: 100%;
+  body, #wrap, #header{
+    height: 100%;
+  }
+
+  #header{
+    .current_page_item{
+      a{
+        // border: 1px solid #fff;
+        // background:rgba(255,255,255,0.2);
+        // color: #fff;
+        //need subtler way to indicate page we are on
+      }
+    }
+
+    #landing-area{
+      max-width: 60%;
+      @media screen and (max-width: 700px) {
+        max-width: 100%;
+      }
+      box-sizing: border-box;
+      padding: 1vw;
+      //border: 1px solid green;
+      margin: auto;
+      &, p, h3{
+        color: #fff;
+        text-align: center;
+      }
+      p, .textwidget{
+        font-size: calc(12px + 0.4vw) !important;
+      }
+    }
+  }
+}
+
+// glitch text start
+
+.glitch{
+  color:white;
+  font-size:100px;
+  position:relative;
+  width:400px;
+  margin:0 auto;
+}
+
+@keyframes noise-anim{
+  // $steps:20;
+  // @for $i from 0 through $steps{
+  //   #{percentage($i*(1/$steps))}{
+  //     clip:rect(random(100)+px,9999px,random(100)+px,0);
+  //   }
+  // }
+
+  // http://stackoverflow.com/questions/15239785/how-to-generate-css-with-loop-in-less
+}
+
+.glitch:after{
+  content:attr(data-text);
+  position:absolute;
+  left:2px;
+  text-shadow:-1px 0 red;
+  top:0;
+  color:white;
+  background:black;
+  overflow:hidden;
+  clip:rect(0,900px,0,0);
+  animation:noise-anim 2s infinite linear alternate-reverse;
+}
+
+@keyframes noise-anim-2{
+  // $steps:20;
+  // @for $i from 0 through $steps{
+  //   #{percentage($i*(1/$steps))}{
+  //     clip:rect(random(100)+px,9999px,random(100)+px,0);
+  //   }
+  // }
+}
+
+.glitch:before{
+  content:attr(data-text);
+  position:absolute;
+  left:-2px;
+  text-shadow:1px 0 blue;
+  top:0;
+  color:white;
+  background:black;
+  overflow:hidden;
+  clip:rect(0,900px,0,0);
+  animation:noise-anim-2 3s infinite linear alternate-reverse;
+}
+
+//glitch text end
+
+
+#wrap {
+
+}
+
+#title{
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  p{
+    color: #fff;
+  }
+}
+
+.subtitle {
+  color: #fff;
+  p{
+    color: #fff;
+  }
+}
+
+
+#user-nav{
+  display: block;
+  width: 100%;
+  float: left;
+  position: relative;
+  padding: 0px;
+  margin: 0px;
+  ul{
+    clear:left;
+    float:left;
+    list-style:none;
+    margin:0;
+    padding:0;
+    position:relative;
+    text-align:center;
+    width: 100%;
+
+    li{
+      font-size: 12px;
+      display:block;
+      float:left;
+      list-style:none;
+      margin:0;
+      padding:0;
+      position:relative;
+
+      @media screen and (max-width: 700px) {
+        width: 100%;
+      }
+
+      &.current_page_item{
+        a{
+          background: rgba(187, 0, 1, 0.4);
+          border: 1px solid rgb(187, 0, 1);
+          color: #fff;
+        }
+      }
+
+      a{
+        display:block;
+        margin: 0.3vw;
+        @media screen and (max-width: 700px) {
+          margin: 1vw;
+        }
+        padding: 0.5vw 1vw;
+
+        border: 1px solid #fff;
+        background:rgba(255,255,255,0.2);
+
+        color: #fff;
+        .transition(background-color 0.5s ease-in-out);
+        .transition(border 0.5s ease-in-out);
+
+        &:hover{
+          background:rgba(69,69,69,0.4);
+          border: 1px solid rgb(69,69,69);
+        }
+      }
+
+    }
+  }
+}
+
+#nav{
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+
+  padding-top: 1vw;
+  padding-bottom: 2vw;
+
+  .transition(margin 0.5s ease);
+
+  @media screen and (max-width: 700px) {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+  }
+
+  ul{
+    clear:left;
+    float:left;
+    list-style:none;
+    margin:0;
+    padding:0;
+    position:relative;
+    left:50%;
+    text-align:center;
+    @media screen and (max-width: 700px) {
+      width: 100%;
+    }
+
+    li{
+      font-size: calc(15px + 0.5vw);
+      display:block;
+      float:left;
+      list-style:none;
+      margin:0;
+      padding:0;
+      position:relative;
+      right:50%;
+      @media screen and (max-width: 700px) {
+        width: 100%;
+      }
+
+      &.current_page_item{
+        a{
+          background: rgba(187, 0, 1, 0.4);
+          border: 1px solid rgb(187, 0, 1);
+          color: #fff;
+        }
+      }
+
+      a{
+        display:block;
+        margin:1vw;
+        padding:1vw 3vw;
+        border: 1px solid #fff;
+        background:rgba(255,255,255,0.2);
+        color: #fff;
+        .transition(background-color 0.5s ease);
+        .transition(border 0.5s ease);
+
+        &:hover{
+          background:rgba(69,69,69,0.4);
+          border: 1px solid rgb(69,69,69);
+        }
+      }
+
+    }
+  }
+
+}
+
+#header{
+  background: #000;
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  min-height: 100%;
+}
+
+.page{
+  background: #fff;
+}
+
+.type-page, .status-publish{
+  background: #fff;
+  padding: 1vw;
+  color: #000;
+}
+
+.pagebody{
+  margin: auto;
+  .transition(width 1s ease);
+  .transition(max-width 1s ease);
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
+    max-width: 800px;
+  @media screen and (min-width: 1200px) {
+    max-width: 1000px;
+  }
+}
+
+.font{
+  color: #454545;
+}
+
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+
+
+.woocommerce{
+  form.login, form.register{
+    border: 1px solid rgba(69, 69, 69, 0.4) !important;
+    border-radius: 0px !important;
+  }
+}
+
+.input-text{
+  padding: 10px 18px;
+  border: 1px solid rgba(69, 69, 69, 0.4);
+  background: rgba(250, 255, 189, 0.4);
+}
+
+.single_add_to_cart_button, .add_to_cart_button{
+  padding: 1em 1em !important;
+}
+
+.wrap{
+  h1{
+    color: red!important;
+  }
+}
