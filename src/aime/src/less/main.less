@@ -189,19 +189,16 @@ a{
   color:white;
   font-size:100px;
   position:relative;
-  width:400px;
+  //width:400px;
   margin:0 auto;
 }
 
-@keyframes noise-anim{
-  // $steps:20;
-  // @for $i from 0 through $steps{
-  //   #{percentage($i*(1/$steps))}{
-  //     clip:rect(random(100)+px,9999px,random(100)+px,0);
-  //   }
-  // }
+@keyframes noise-anim {
+   .glitchLoop(20);
+}
 
-  // http://stackoverflow.com/questions/15239785/how-to-generate-css-with-loop-in-less
+@-webkit-keyframes noise-anim {
+   .glitchLoop(20);
 }
 
 .glitch:after{
@@ -217,13 +214,12 @@ a{
   animation:noise-anim 2s infinite linear alternate-reverse;
 }
 
-@keyframes noise-anim-2{
-  // $steps:20;
-  // @for $i from 0 through $steps{
-  //   #{percentage($i*(1/$steps))}{
-  //     clip:rect(random(100)+px,9999px,random(100)+px,0);
-  //   }
-  // }
+@keyframes noise-anim-2 {
+  .glitchLoop(20);
+}
+
+@-webkit-keyframes noise-anim-2 {
+  .glitchLoop(20);
 }
 
 .glitch:before{
@@ -239,6 +235,22 @@ a{
   animation:noise-anim-2 3s infinite linear alternate-reverse;
 }
 
+.glitchLoop(@n, @i: 0) when (@i =< @n) {
+
+    @p: percentage(@i/20);
+    @randX: `(Math.random()*100)+0`;
+    @randY: `(Math.random()*100)+0`;
+
+    /* Occasionally drop in green */
+    @green: `Math.random()*10`;
+
+    @{p} {
+       clip:rect(~"@{randX}px",9999px,~"@{randY}px",0);
+    }
+
+    .glitchLoop(@n, (@i + 1));   // next iteration
+}
+
 //glitch text end
 
 
@@ -252,6 +264,7 @@ a{
   box-sizing: border-box;
   p{
     color: #fff;
+    font-size: 4vw;
   }
 }
 
@@ -266,19 +279,18 @@ a{
 #user-nav{
   display: block;
   width: 100%;
-  float: left;
+
   position: relative;
   padding: 0px;
   margin: 0px;
   ul{
     clear:left;
-    float:left;
+    float:right;
     list-style:none;
     margin:0;
     padding:0;
     position:relative;
     text-align:center;
-    width: 100%;
 
     li{
       font-size: 12px;

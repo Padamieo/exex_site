@@ -37,7 +37,7 @@
 
 		<div id="title">
 			<a href="<?php echo home_url(); ?>/" title="<?php get_bloginfo( 'name' ); ?>" rel="home">
-			     <p class="someSelector"><?php bloginfo('sitename'); ?></p>
+			     <p class="glitch" data-text="GLITCH"><?php bloginfo('sitename'); ?></p>
 			</a>
 		</div>
 
