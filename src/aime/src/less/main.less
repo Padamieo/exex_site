@@ -185,71 +185,66 @@ a{
 
 // glitch text start
 
-.glitch{
-  color:white;
-  font-size:100px;
-  position:relative;
-  //width:400px;
-  margin:0 auto;
-}
-
-@keyframes noise-anim {
-   .glitchLoop(20);
-}
-
-@-webkit-keyframes noise-anim {
-   .glitchLoop(20);
-}
-
-.glitch:after{
-  content:attr(data-text);
-  position:absolute;
-  left:2px;
-  text-shadow:-1px 0 red;
-  top:0;
-  color:white;
-  background:black;
-  overflow:hidden;
-  clip:rect(0,900px,0,0);
-  animation:noise-anim 2s infinite linear alternate-reverse;
-}
-
-@keyframes noise-anim-2 {
-  .glitchLoop(20);
-}
-
-@-webkit-keyframes noise-anim-2 {
-  .glitchLoop(20);
-}
-
-.glitch:before{
-  content:attr(data-text);
-  position:absolute;
-  left:-2px;
-  text-shadow:1px 0 blue;
-  top:0;
-  color:white;
-  background:black;
-  overflow:hidden;
-  clip:rect(0,900px,0,0);
-  animation:noise-anim-2 3s infinite linear alternate-reverse;
-}
-
-.glitchLoop(@n, @i: 0) when (@i =< @n) {
-
-    @p: percentage(@i/20);
-    @randX: `(Math.random()*100)+0`;
-    @randY: `(Math.random()*100)+0`;
-
-    /* Occasionally drop in green */
-    @green: `Math.random()*10`;
-
-    @{p} {
-       clip:rect(~"@{randX}px",9999px,~"@{randY}px",0);
+@keyframes glitcha{
+  @iterations: 20;
+  .loop (@i) when (@i > 0) {
+    @percent: (@i/@iterations)*100%;
+    @rand: `Math.floor((Math.random() * 100) + 1)`;
+    @{percent} {
+  	  clip:rect(unit(@rand,px),9999px, unit(@rand,px),0);
     }
-
-    .glitchLoop(@n, (@i + 1));   // next iteration
+    .loop(@i - 1);
+  }
+  .loop(@iterations);
 }
+
+@keyframes glitchb{
+  @iterations: 20;
+  @i: 0;
+  .loop (@i) when (@i > 0) {
+    @percent: (@i/@iterations)*100%;
+    @rand: `Math.floor((Math.random() * 100) + 1)`;
+    @{percent} {
+	    clip:rect(unit(@rand,px),9999px, unit(@rand,px),0);
+    }
+    .loop(@i - 1);
+  }
+  .loop(@iterations);
+}
+
+.glitch{
+	font-weight:100;
+	// font-family:'Exo 2';
+	//padding:20px 0 20px 10px;
+	font-size: 3em;
+	position: relative;
+	color:#fff;
+
+	&:after{
+		content:attr(data-text);
+		position:absolute;
+		left: 2px;
+		text-shadow: -1px 0 green;
+		//top: 20px;
+		color:white;
+		overflow:hidden;
+		clip:rect(0,900px,0,0);
+		animation:glitcha 2s infinite linear alternate-reverse;
+	}
+
+	&:before{
+		content:attr(data-text);
+		position:absolute;
+		left: -2px;
+		text-shadow: 1px 0 red;
+		//top: 20px;
+		color:white;
+		overflow:hidden;
+		clip:rect(0,900px,0,0);
+		animation:glitchb 4s infinite linear alternate-reverse;
+	}
+}
+
 
 //glitch text end
 
