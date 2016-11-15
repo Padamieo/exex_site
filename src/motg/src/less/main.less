@@ -271,7 +271,7 @@ a{
   position: relative;
   padding: 0px;
   margin: 0px;
-  background: rgba(23, 41, 41, 0.8);
+  background: rgba(23, 41, 41, 0.5);
   ul{
     clear:left;
     float:left;
@@ -415,6 +415,25 @@ a{
   display: inline-block;
   width: 100%;
   background-position-x: 50%;
+
+  -webkit-animation: filter-animation 100s infinite;
+
+
+}
+
+@-webkit-keyframes filter-animation {
+  0% {
+    -webkit-filter: contrast(1);
+    filter: contrast(1);
+  }
+  50% {
+    // -webkit-filter: contrast(2);
+    // filter: contrast(2);
+  }
+  100% {
+    -webkit-filter: contrast(1);
+    filter: contrast(1);
+  }
 }
 
 .page{
