@@ -2,7 +2,7 @@
   "name": "exex_sites",
   "version": "0.0.1",
   "dependencies": {
-    "wordpress": "4.6.1",
+    "wordpress": "4.7.1",
     "jquery": "~1.10.2",
     "masonry": "3.3.2",
     "fancyBox": "2.1.5",
