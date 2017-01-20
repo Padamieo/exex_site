@@ -63,7 +63,7 @@ function alter_woocommerce_checkout_fields( $fields ) {
 }
 
 
-// Set a minimum number of products requirement before checking out
+// Set a maximum number of products requirement before checking out
 add_action( 'woocommerce_check_cart_items', 'spyr_set_min_num_products' );
 function spyr_set_min_num_products() {
 	// Only run in the Cart or Checkout pages
@@ -71,7 +71,7 @@ function spyr_set_min_num_products() {
 		global $woocommerce;
 
 		// Set the minimum number of products before checking out
-		$minimum_num_products = 4;
+		$maxinum_num_products = 4;
 		// Get the Cart's total number of products
 		$cart_num_products = WC()->cart->cart_contents_count;
 
@@ -80,11 +80,11 @@ function spyr_set_min_num_products() {
 		// Will display a message along the lines of
 		// A Minimum of 20 products is required before checking out. (Cont. below)
 		// Current number of items in the cart: 6
-		if( $cart_num_products > $minimum_num_products ) {
+		if( $cart_num_products > $maxinum_num_products ) {
 			// Display our error message
-	        wc_add_notice( sprintf( '<strong>A Minimum of %s products is required before checking out.</strong>'
+	        wc_add_notice( sprintf( '<strong>A Maximum of %s tickets are available from this site per customer.</strong>'
           . '<br />Current number of items in the cart: %s.',
-	        	$minimum_num_products,
+	        	$maxinum_num_products,
 	        	$cart_num_products ),
 	        'error' );
 		}
@@ -92,10 +92,7 @@ function spyr_set_min_num_products() {
 }
 
 
-/**
- * Add the field to the checkout
- */
-add_action( 'woocommerce_after_order_notes', 'my_custom_checkout_field' );
+/// add additional input to checkout form
 
 function my_custom_checkout_field( $checkout ) {
 
@@ -104,17 +101,78 @@ function my_custom_checkout_field( $checkout ) {
     $cart_num_products = WC()->cart->cart_contents_count;
 
     for ($i = 1; $i <= $cart_num_products; $i++) {
-      woocommerce_form_field( 'my_field_name', array(
+
+      woocommerce_form_field( 'my_field_name'.$i, array(
       'type'          => 'text',
-      'class'         => array('my-field-class form-row-wide'),
-      'label'         => __('Guest '.$i.' Full Name'),
-      'placeholder'   => __('Enter something'),
-      ), $checkout->get_value( 'my_field_name' ));
+      'class'         => array('my-field-class form-row-wide', 'validate-required
+      woocommerce-invalid
+      woocommerce-invalid-required-field'),
+      'label'         => __('Guest '.$i.'\'s Full Name <abbr class="required" title="required">*</abbr>'),
+      'placeholder'   => __(''),
+      ), $checkout->get_value( 'my_field_name'.$i ));
+
     }
 
     echo '</div>';
 
 }
+add_action( 'woocommerce_after_order_notes', 'my_custom_checkout_field' );
 
+// checks the guest name field is checked
+function my_custom_checkout_field_process() {
+    // Check if set, if its not set add an error.
+    $cart_num_products = WC()->cart->cart_contents_count;
+
+    for ($i = 1; $i <= $cart_num_products; $i++) {
+      if ( ! $_POST['my_field_name'.$i] ){
+        wc_add_notice( __( '<b>Guest '.$i.'\'s full name</b> is a required field.' ), 'error' );
+      }
+    }
+
+}
+add_action('woocommerce_checkout_process', 'my_custom_checkout_field_process');
+
+
+function my_custom_checkout_field_update_order_meta( $order_id ) {
+
+    if ( ! empty( $_POST['my_field_name1'] ) ) {
+        update_post_meta( $order_id, 'My Field', sanitize_text_field( $_POST['my_field_name1'] ) );
+    }
+}
+add_action( 'woocommerce_checkout_update_order_meta', 'my_custom_checkout_field_update_order_meta' );
+
+
+function my_custom_checkout_field_display_admin_order_meta($order){
+  echo '<p><strong>'.__('My Field').':</strong> ' . get_post_meta( $order->id, 'My Field', true ) . '</p>';
+}
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
+
+
+function sv_disable_repeat_purchase( $purchasable, $product ) {
+    // Enter the ID of the product that shouldn't be purchased again
+    $non_purchasable = 356;
+
+    // Get the ID for the current product (passed in)
+    $product_id = $product->is_type( 'variation' ) ? $product->variation_id : $product->id;
+
+    // Bail unless the ID is equal to our desired non-purchasable product
+    if ( $non_purchasable != $product_id ) {
+      return $purchasable;
+    }
+
+    // return false if the customer has bought the product
+    if ( wc_customer_bought_product( wp_get_current_user()->user_email, get_current_user_id(), $product_id ) ) {
+      $purchasable = false;
+    }
+
+    // Double-check for variations: if parent is not purchasable, then variation is not
+    if ( $purchasable && $product->is_type( 'variation' ) ) {
+      $purchasable = $product->parent->is_purchasable();
+    }
+
+    return $purchasable;
+}
+add_filter( 'woocommerce_variation_is_purchasable', 'sv_disable_repeat_purchase', 10, 2 );
+add_filter( 'woocommerce_is_purchasable', 'sv_disable_repeat_purchase', 10, 2 );
 
 ?>
