@@ -70,8 +70,8 @@ function spyr_set_min_num_products() {
 	if( is_cart() || is_checkout() ) {
 		global $woocommerce;
 
-		// Set the minimum number of products before checking out
-		$maxinum_num_products = 4;
+		// Set the maxinum number of products before checking out
+		$maxinum_num_products = limit();
 		// Get the Cart's total number of products
 		$cart_num_products = WC()->cart->cart_contents_count;
 
@@ -99,17 +99,22 @@ function my_custom_checkout_field( $checkout ) {
     echo '<div id="my_custom_checkout_field"><h2>' . __('Ticket Information') . '</h2>';
 
     $cart_num_products = WC()->cart->cart_contents_count;
+    $ticketTypes = build_ticket_array_name();
 
     for ($i = 1; $i <= $cart_num_products; $i++) {
-
-      woocommerce_form_field( 'my_field_name'.$i, array(
+      $label = 'Guest '.$i.'\'s Full Name <abbr class="required" title="required">*</abbr> ('.$ticketTypes[$i].')';
+      $classes = array(
+        'my-field-class form-row-wide',
+        'validate-required',
+        'woocommerce-invalid',
+        'woocommerce-invalid-required-field'
+      );
+      woocommerce_form_field( 'guest_name_'.$i, array(
       'type'          => 'text',
-      'class'         => array('my-field-class form-row-wide', 'validate-required
-      woocommerce-invalid
-      woocommerce-invalid-required-field'),
-      'label'         => __('Guest '.$i.'\'s Full Name <abbr class="required" title="required">*</abbr>'),
+      'class'         => $classes,
+      'label'         => __($label),
       'placeholder'   => __(''),
-      ), $checkout->get_value( 'my_field_name'.$i ));
+      ), $checkout->get_value( 'guest_name_'.$i ));
 
     }
 
@@ -124,7 +129,7 @@ function my_custom_checkout_field_process() {
     $cart_num_products = WC()->cart->cart_contents_count;
 
     for ($i = 1; $i <= $cart_num_products; $i++) {
-      if ( ! $_POST['my_field_name'.$i] ){
+      if ( ! $_POST['guest_name_'.$i] ){
         wc_add_notice( __( '<b>Guest '.$i.'\'s full name</b> is a required field.' ), 'error' );
       }
     }
@@ -132,47 +137,155 @@ function my_custom_checkout_field_process() {
 }
 add_action('woocommerce_checkout_process', 'my_custom_checkout_field_process');
 
-
+//save guest name as meta with the ticket
 function my_custom_checkout_field_update_order_meta( $order_id ) {
-
-    if ( ! empty( $_POST['my_field_name1'] ) ) {
-        update_post_meta( $order_id, 'My Field', sanitize_text_field( $_POST['my_field_name1'] ) );
+  for ($i = 1; $i <= 4; $i++) {
+    $string = 'guest_name_'.$i;
+    if ( ! empty( $_POST[$string] ) ) {
+      update_post_meta( $order_id, $string, sanitize_text_field( $_POST[$string] ) );
     }
+  }
 }
 add_action( 'woocommerce_checkout_update_order_meta', 'my_custom_checkout_field_update_order_meta' );
 
 
 function my_custom_checkout_field_display_admin_order_meta($order){
+
   echo '<p><strong>'.__('My Field').':</strong> ' . get_post_meta( $order->id, 'My Field', true ) . '</p>';
+
 }
 add_action( 'woocommerce_admin_order_data_after_billing_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
 
 
+function build_ticket_array_name(){
+  $array = [];
+  foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+    $_product = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+
+    if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
+      for ($i = 0; $i <= $cart_item['quantity']; $i++) {
+        array_push($array, $_product->get_title());
+      }
+    }
+  }
+  return  $array;
+}
+
+
+function add_ticket_information($order){
+  $array = [];
+  foreach( $order->get_items() as $item_id => $item ) {
+    $product = apply_filters( 'woocommerce_order_item_product', $order->get_product_from_item( $item ), $item );
+    for ($i = 1; $i <= $item['qty']; $i++) {
+      array_push($array, $item['name']);
+    }
+  }
+
+  echo '</table>';
+  echo '<header><h2>Ticket Information</h2></header>';
+  echo '<table class="shop_table customer_details">';
+
+  //print_r($order);
+  for ($i = 1; $i <= 4; $i++) {
+    $sting = 'guest_name_'.$i;
+    $name = get_post_meta( $order->id, $sting, true );
+    if($name){
+      echo '<tr><th>'.$array[$i-1].' for:</th>';
+      echo '<td>'.$name.'</td></tr>';
+    }
+  }
+	echo '</tr>';
+}
+add_action( 'woocommerce_order_details_after_customer_details', 'add_ticket_information', 10, 1 );
+
+
+function limit(){
+  $cal = 0;
+
+  $customer_orders = get_posts( array(
+    'numberposts' => -1,
+    'meta_key'    => '_customer_user',
+    'meta_value'  => get_current_user_id(),
+    'post_type'   => wc_get_order_types(),
+    'post_status' => array_keys( wc_get_order_statuses() ),
+  ) );
+  //print_r($customer_orders);
+  foreach( $customer_orders as $order_id => $order ) {
+    //print_r($item);
+    //echo $item->ID.'--';
+    $ord = wc_get_order( $order->ID );
+    foreach( $ord->get_items() as $item_id => $item ) {
+      //echo $item['qty']."--";
+      $cal = $cal + $item['qty'];
+    }
+  }
+  return $cal;
+}
+
 function sv_disable_repeat_purchase( $purchasable, $product ) {
+  /*
     // Enter the ID of the product that shouldn't be purchased again
-    $non_purchasable = 356;
+    $non_purchasable = 16;
+    //print_r($purchasable);
 
     // Get the ID for the current product (passed in)
     $product_id = $product->is_type( 'variation' ) ? $product->variation_id : $product->id;
-
+    //echo $product_id;
     // Bail unless the ID is equal to our desired non-purchasable product
     if ( $non_purchasable != $product_id ) {
       return $purchasable;
     }
-
+    //echo wp_get_current_user()->user_email;
     // return false if the customer has bought the product
     if ( wc_customer_bought_product( wp_get_current_user()->user_email, get_current_user_id(), $product_id ) ) {
       $purchasable = false;
     }
+  */
 
+    $cal = limit();
+    //echo $cal;
+    if($cal > 4){
+      $purchasable = false;
+    }
+
+  /*
     // Double-check for variations: if parent is not purchasable, then variation is not
     if ( $purchasable && $product->is_type( 'variation' ) ) {
       $purchasable = $product->parent->is_purchasable();
     }
+  */
 
     return $purchasable;
 }
 add_filter( 'woocommerce_variation_is_purchasable', 'sv_disable_repeat_purchase', 10, 2 );
 add_filter( 'woocommerce_is_purchasable', 'sv_disable_repeat_purchase', 10, 2 );
+
+// function sv_purchase_disabled_message() {
+//     // Enter the ID of the product that shouldn't be purchased again
+//     $no_repeats_id = 16;
+//     $no_repeats_product = wc_get_product( $no_repeats_id );
+//
+//     // Get the current product to check if purchasing should be disabled
+//     global $product;
+//
+//     if ( $no_repeats_product->is_type( 'variation' ) ) {
+//         // Bail if we're not looking at the product page for the non-purchasable product
+//         if ( ! $no_repeats_product->parent->id === $product->id ) {
+//             return;
+//         }
+//
+//         // Render the purchase restricted message if we are
+//         if ( wc_customer_bought_product( wp_get_current_user()->user_email, get_current_user_id(), $no_repeats_id ) ) {
+//             sv_render_variation_non_purchasable_message( $product, $no_repeats_id );
+//         }
+//
+//     } elseif ( $no_repeats_id === $product->id ) {
+//         if ( wc_customer_bought_product( wp_get_current_user()->user_email, get_current_user_id(), $no_repeats_id ) ) {
+//             // Create your message for the customer here
+//             echo '<div class="woocommerce"><div class="woocommerce-info wc-nonpurchasable-message">You\'ve already purchased this product! It can only be purchased once.</div></div>';
+//         }
+//     }
+// }
+// add_action( 'woocommerce_single_product_summary', 'sv_purchase_disabled_message', 31 );
 
 ?>
