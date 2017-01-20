@@ -222,43 +222,21 @@ function limit(){
   return $cal;
 }
 
+//https://www.skyverge.com/blog/get-all-woocommerce-orders-for-a-customer/
+
 function sv_disable_repeat_purchase( $purchasable, $product ) {
-  /*
-    // Enter the ID of the product that shouldn't be purchased again
-    $non_purchasable = 16;
-    //print_r($purchasable);
+  $cal = limit();
 
-    // Get the ID for the current product (passed in)
-    $product_id = $product->is_type( 'variation' ) ? $product->variation_id : $product->id;
-    //echo $product_id;
-    // Bail unless the ID is equal to our desired non-purchasable product
-    if ( $non_purchasable != $product_id ) {
-      return $purchasable;
-    }
-    //echo wp_get_current_user()->user_email;
-    // return false if the customer has bought the product
-    if ( wc_customer_bought_product( wp_get_current_user()->user_email, get_current_user_id(), $product_id ) ) {
-      $purchasable = false;
-    }
-  */
+  if($cal > 4){
+    $purchasable = false;
+  }
 
-    $cal = limit();
-    //echo $cal;
-    if($cal > 4){
-      $purchasable = false;
-    }
-
-  /*
-    // Double-check for variations: if parent is not purchasable, then variation is not
-    if ( $purchasable && $product->is_type( 'variation' ) ) {
-      $purchasable = $product->parent->is_purchasable();
-    }
-  */
-
-    return $purchasable;
+  return $purchasable;
 }
 add_filter( 'woocommerce_variation_is_purchasable', 'sv_disable_repeat_purchase', 10, 2 );
 add_filter( 'woocommerce_is_purchasable', 'sv_disable_repeat_purchase', 10, 2 );
+
+//the following will need to be modifyed
 
 // function sv_purchase_disabled_message() {
 //     // Enter the ID of the product that shouldn't be purchased again
