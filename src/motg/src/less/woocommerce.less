@@ -3,7 +3,7 @@
   position: absolute;
   right: 0;
   border-radius: 25px;
-  background: rgb(115,187,215);
+  background: @blue;
   padding: 10px;
   font-size: small;
   color: #fff;
@@ -78,9 +78,14 @@
       list-style-type: none;
       border: 1px solid;
       padding-left: none;
+      &:hover{
+        border: 1px solid @blue;
+      }
       a{
         display: block;
         padding: 0.5vw;
+        text-decoration: none !important;
+        font-weight: bold;
       }
     }
   }
@@ -88,4 +93,10 @@
 
 .wc_payment_methods li{
   list-style: none;
+}
+
+.wc-nonpurchasable-message, .woocommerce-error{
+  a{
+    text-decoration: underline;
+  }
 }

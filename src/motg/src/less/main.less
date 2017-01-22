@@ -139,19 +139,17 @@ hr{
 a{
   &:link{
     color:#444444;
-    text-decoration: none;
+    text-decoration: underline;
   }
   &:visited{
     color:#444444;
-    text-decoration: none;
+    text-decoration: underline;
   }
   &:hover{
-    color: #1CCCCC;
-    text-decoration: none;
+    color: @blue;
   }
   &:active{
     color:#444444;
-    text-decoration: none;
   }
   &:focus{
     outline-style: none;
@@ -206,7 +204,6 @@ a{
   position: relative;
   padding: 1vw;
   box-sizing: border-box;
-
   float: left;
   width: 100%;
 
@@ -218,7 +215,6 @@ a{
     font-weight: normal;
     line-height: calc(15px + 5.5vw);
     text-transform: uppercase;
-
     border: 1px solid #454545;
     @media screen and (max-width: 700px) {
       border: 1px solid #fff;
@@ -241,6 +237,9 @@ a{
       text-shadow: 0 0 0.2em #fff;
     }
   }
+  a{
+    text-decoration: none !important;
+  }
 
 }
 
@@ -248,7 +247,6 @@ a{
   padding: 1vw;
   padding-top: 6vw;
   box-sizing: border-box;
-
   float: left;
   width: 100%;
 
@@ -262,6 +260,9 @@ a{
     @media screen and (max-width: 700px) {
       color: #fff;
     }
+  }
+  a{
+    text-decoration: none !important;
   }
 }
 
@@ -303,6 +304,7 @@ a{
           background: rgba(187, 0, 1, 0.4);
           border: 1px solid rgb(187, 0, 1);
           color: #fff;
+
         }
       }
 
@@ -329,6 +331,7 @@ a{
           background:rgba(69,69,69,0.4);
           border: 1px solid rgb(69,69,69);
         }
+        text-decoration: none !important;
       }
 
     }
@@ -398,6 +401,7 @@ a{
           background:rgba(69,69,69,0.4);
           border: 1px solid rgb(69,69,69);
         }
+        text-decoration: none !important;
       }
 
     }

@@ -51,96 +51,97 @@ function alter_woocommerce_checkout_fields( $fields ) {
   return $fields;
 }
 
+//text thats used in two messages
+function basic_explination($set = '' ){
+  $s = ($set ? $set : '%s' );
+  $string = '<strong>A Maximum of '.$s.' tickets are available from this site per customer.</strong> '
+  . '<a href="/contact">Please contact us if you need more.</a>';
+  return $string;
+}
+
 // Set a maximum number of products requirement before checking out
 function set_max_num_purchases() {
 	if( is_cart() || is_checkout() ) {
 		global $woocommerce;
-    $per_customer_limit = per_customer_limit();
-
-		$maxinum_num_products = limit();
+    $customer_limit = per_customer_limit();
+		$tickets_avaliable = limit();
 
 		$cart_num_products = WC()->cart->cart_contents_count;
+    $basic_text = basic_explination() . '<br />Current number of items in the cart: %s.';
 
-		if( $cart_num_products > $maxinum_num_products ) {
-			// Display our error message
+    if($tickets_avaliable != 4){
+      $purchased = $customer_limit - $tickets_avaliable;
+      $basic_text = $basic_text.' You previously purchased '.$purchased.' so can only purchase '.$tickets_avaliable.' now.';
+    }
 
-      if($maxinum_num_products)
-
-        wc_add_notice( sprintf( '<strong>A Maximum of %s tickets are available from this site per customer.</strong>'
-        . '<br />Current number of items in the cart: %s.',
-        	$per_customer_limit,
-        	$cart_num_products ),
-        'error' );
-
-		}
+    if( $cart_num_products > $tickets_avaliable ) {
+      wc_add_notice( sprintf( $basic_text,
+        $customer_limit,
+        $cart_num_products ),
+      'error' );
+    }
 	}
 }
 add_action( 'woocommerce_check_cart_items', 'set_max_num_purchases' );
 
 
-/// add additional input to checkout form
-
-function my_custom_checkout_field( $checkout ) {
-
+// adds additional input to checkout form for guest information
+function guest_info_checkout( $checkout ) {
     echo '<div id="my_custom_checkout_field"><h2>' . __('Ticket Information') . '</h2>';
 
-    $cart_num_products = WC()->cart->cart_contents_count;
-    $ticketTypes = build_ticket_array_name('cart');
+      $cart_num_products = WC()->cart->cart_contents_count;
+      $ticketTypes = build_ticket_array_name('cart');
 
-    for ($i = 1; $i <= $cart_num_products; $i++) {
+      for ($i = 1; $i <= $cart_num_products; $i++) {
 
-      $guest = 'Guest '.$i;
-      $label = $guest.' Full Name <abbr class="required" title="required">*</abbr> ('.$ticketTypes[$i].')';
-      $classes = array(
-        'my-field-class form-row-wide',
-        'validate-required',
-        'woocommerce-invalid',
-        'woocommerce-invalid-required-field'
-      );
-      woocommerce_form_field( 'guest_name_'.$i, array(
-      'type'          => 'text',
-      'class'         => $classes,
-      'label'         => __($label),
-      'placeholder'   => __(''),
-      ), $checkout->get_value( 'guest_name_'.$i ));
+        $guest = 'Guest '.$i;
+        $label = $guest.' Full Name <abbr class="required" title="required">*</abbr> ('.$ticketTypes[$i].')';
+        $classes = array(
+          'my-field-class form-row-wide',
+          'validate-required',
+          'woocommerce-invalid',
+          'woocommerce-invalid-required-field'
+        );
+        woocommerce_form_field( 'guest_name_'.$i, array(
+        'type'          => 'text',
+        'class'         => $classes,
+        'label'         => __($label),
+        'placeholder'   => __(''),
+        ), $checkout->get_value( 'guest_name_'.$i ));
 
-      woocommerce_form_field( 'guest_'.$i.'_meal', array(
-      'type'          => 'select',
-      'class'         => array('my-field-class form-row-wide'),
-      'label'         => __($guest." Dietary Requirments"),
-      'placeholder'   => __(''),
-      'options'       => array(
-        'standard' => __('None', 'woocommerce' ),
-        'vegitarian' => __('Vegitarian', 'woocommerce' ),
-        'vegan' => __('Vegan', 'woocommerce' ),
-        'allergies' => __('Allergies (please specify in Order Notes)', 'woocommerce' ),
-        'other' => __('Other (please specify in Order Notes)', 'woocommerce' )
-      )
-    ), $checkout->get_value( 'guest_'.$i.'_meal' ));
+        woocommerce_form_field( 'guest_'.$i.'_meal', array(
+        'type'          => 'select',
+        'class'         => array('my-field-class form-row-wide'),
+        'label'         => __($guest." Dietary Requirments"),
+        'placeholder'   => __(''),
+        'options'       => array(
+          'standard' => __('None', 'woocommerce' ),
+          'vegitarian' => __('Vegitarian', 'woocommerce' ),
+          'vegan' => __('Vegan', 'woocommerce' ),
+          'allergies' => __('Allergies (please specify in Order Notes)', 'woocommerce' ),
+          'other' => __('Other (please specify in Order Notes)', 'woocommerce' )
+        )
+      ), $checkout->get_value( 'guest_'.$i.'_meal' ));
 
-  }
-
-    echo '</div>';
-
-}
-add_action( 'woocommerce_after_order_notes', 'my_custom_checkout_field' );
-
-// checks the guest name field is checked
-function my_custom_checkout_field_process() {
-    // Check if set, if its not set add an error.
-    $cart_num_products = WC()->cart->cart_contents_count;
-
-    for ($i = 1; $i <= $cart_num_products; $i++) {
-      if ( ! $_POST['guest_name_'.$i] ){
-        wc_add_notice( __( '<b>Guest '.$i.'\'s full name</b> is a required field.' ), 'error' );
-      }
     }
 
+  echo '</div>';
 }
-add_action('woocommerce_checkout_process', 'my_custom_checkout_field_process');
+add_action( 'woocommerce_after_order_notes', 'guest_info_checkout' );
+
+// checks the guest name field is input
+function confirm_guest_name_is_complete() {
+  $cart_num_products = WC()->cart->cart_contents_count;
+  for ($i = 1; $i <= $cart_num_products; $i++) {
+    if ( ! $_POST['guest_name_'.$i] ){
+      wc_add_notice( __( '<b>Guest '.$i.'\'s full name</b> is a required field.' ), 'error' );
+    }
+  }
+}
+add_action('woocommerce_checkout_process', 'confirm_guest_name_is_complete');
 
 //save guest name as meta with the ticket
-function my_custom_checkout_field_update_order_meta( $order_id ) {
+function save_guest_checkout_details( $order_id ) {
   $per_customer_limit = per_customer_limit();
   for ($i = 1; $i <= $per_customer_limit; $i++) {
     $name_term = 'guest_name_'.$i;
@@ -153,13 +154,15 @@ function my_custom_checkout_field_update_order_meta( $order_id ) {
     }
   }
 }
-add_action( 'woocommerce_checkout_update_order_meta', 'my_custom_checkout_field_update_order_meta' );
+add_action( 'woocommerce_checkout_update_order_meta', 'save_guest_checkout_details' );
 
 // tickets sent to notice
 function ticket_sent_to_notice(){
   $cart_num_products = WC()->cart->cart_contents_count;
   if($cart_num_products > 1){
-    echo '<div class="woocommerce-message"><b>All Guest Tickets</b> will be sent to the billing address unless specified otherwise in <b>Order Notes<b>.</div>';
+    echo '<div class="woocommerce-info">';
+    echo '<b>All Guest Tickets</b> will be sent to the billing address unless specified otherwise in <b>Order Notes<b>.';
+    echo'</div>';
   }
 }
 add_action('woocommerce_checkout_before_customer_details', 'ticket_sent_to_notice');
@@ -207,7 +210,7 @@ function build_ticket_array_name($order){
 }
 
 //on order detail list each guest ticket info
-function add_ticket_information($order){
+function add_ticket_information_for_customer($order){
   $per_customer_limit = per_customer_limit();
   $array = build_ticket_array_name($order);
 
@@ -222,14 +225,14 @@ function add_ticket_information($order){
     $dietary_term = 'guest_'.$i.'_meal';
     $dietary = get_post_meta( $order->id, $dietary_term, true );
     if($name){
-      echo '<td>'.$array[$i-1].'</td>';
+      echo '<tr><td>'.$array[$i-1].'</td>';
       echo '<td>'.$name.'</td>';
-      echo '<td>'.$dietary.'</td>';
+      echo '<td>'.$dietary.'</td></tr>';
     }
   }
 	echo '</tr>';
 }
-add_action( 'woocommerce_order_details_after_customer_details', 'add_ticket_information', 10, 1 );
+add_action( 'woocommerce_order_details_after_customer_details', 'add_ticket_information_for_customer', 10, 1 );
 
 
 // removes the order again button
@@ -244,7 +247,6 @@ function limit(){
   $per_customer_limit = per_customer_limit();
   if(get_current_user_id() != 0){
     $cal = 0;
-
     $customer_orders = get_posts( array(
       'numberposts' => -1,
       'meta_key'    => '_customer_user',
@@ -258,18 +260,19 @@ function limit(){
         $cal = $cal + $item['qty'];
       }
     }
+    $cal = $per_customer_limit - $cal;
   }else{
     $cal = $per_customer_limit;
   }
   return $cal;
-
 }
 
 //decides if the user can purchase based on previouse purchases and global limit
 function define_if_user_can_purchase( $purchasable, $product ) {
-  $per_customer_limit = per_customer_limit();
-  $cal = limit();
-  if($cal > $per_customer_limit){
+  $customer_limit = per_customer_limit();
+  $tickets_avaliable = limit();
+  $purchased = $customer_limit - $tickets_avaliable;
+  if($purchased >= $customer_limit){
     $purchasable = false;
   }
   return $purchasable;
@@ -277,36 +280,20 @@ function define_if_user_can_purchase( $purchasable, $product ) {
 add_filter( 'woocommerce_variation_is_purchasable', 'define_if_user_can_purchase', 10, 2 );
 add_filter( 'woocommerce_is_purchasable', 'define_if_user_can_purchase', 10, 2 );
 
-//https://www.skyverge.com/blog/get-all-woocommerce-orders-for-a-customer/
-
-//the following will need to be modifyed
-
-// function sv_purchase_disabled_message() {
-//     // Enter the ID of the product that shouldn't be purchased again
-//     $no_repeats_id = 16;
-//     $no_repeats_product = wc_get_product( $no_repeats_id );
-//
-//     // Get the current product to check if purchasing should be disabled
-//     global $product;
-//
-//     if ( $no_repeats_product->is_type( 'variation' ) ) {
-//         // Bail if we're not looking at the product page for the non-purchasable product
-//         if ( ! $no_repeats_product->parent->id === $product->id ) {
-//             return;
-//         }
-//
-//         // Render the purchase restricted message if we are
-//         if ( wc_customer_bought_product( wp_get_current_user()->user_email, get_current_user_id(), $no_repeats_id ) ) {
-//             sv_render_variation_non_purchasable_message( $product, $no_repeats_id );
-//         }
-//
-//     } elseif ( $no_repeats_id === $product->id ) {
-//         if ( wc_customer_bought_product( wp_get_current_user()->user_email, get_current_user_id(), $no_repeats_id ) ) {
-//             // Create your message for the customer here
-//             echo '<div class="woocommerce"><div class="woocommerce-info wc-nonpurchasable-message">You\'ve already purchased this product! It can only be purchased once.</div></div>';
-//         }
-//     }
-// }
-// add_action( 'woocommerce_single_product_summary', 'sv_purchase_disabled_message', 31 );
+//pruchased limit information
+function purchased_limit_notice() {
+  $customer_limit = per_customer_limit();
+  $tickets_avaliable = limit();
+  $purchased = $customer_limit - $tickets_avaliable;
+  if($purchased >= $customer_limit){
+    echo '<div class="woocommerce">';
+    echo '<div class="woocommerce-info wc-nonpurchasable-message">';
+    echo basic_explination($customer_limit);
+    $purchased = $customer_limit - $tickets_avaliable;
+    echo '</br>This is because you have previously purchased '.$purchased.' Tickets, <a href="/orders">Review Orders</a>';
+    echo '</div></div>';
+  }
+}
+add_action( 'woocommerce_single_product_summary', 'purchased_limit_notice', 31 );
 
 ?>
