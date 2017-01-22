@@ -8,8 +8,9 @@
         <?php if ( has_post_thumbnail() ) { ?>
 					<div class="niss-image"><?php the_post_thumbnail( 'detail-image' );  ?></div>
         <?php } ?>
-
-   			<div class="pagebody">
+					<?php
+					echo '<div id="about" class="pagebody">';
+					?>
           <h1 class="font"><?php the_title(); ?></h1>
      		 	<?php the_content(); ?>
 					<?php //wp_link_pages(); ?>

@@ -12,7 +12,6 @@
 
 #container{
   display: inline-block;
-  border: 1px solid red;
   &:extend(.type-page);
   &:after{
     visibility: hidden;
@@ -43,33 +42,38 @@
 #content { display: block; }
 
 
-.woocommerce ul.products li.product, .woocommerce-page ul.products li.product{
-  border: 1px solid pink;
-  margin: 0 !important;
-  padding: 5px !important;
-
-  width: 50% !important;
+ul.products{
+  display: flex;
   @media screen and (max-width: 700px) {
-    width: 100% !important;
+    display: block;
   }
-
-  font-size: calc(15px + 0.5vw);
-
-  box-sizing: border-box;
-  a{
-    img{
-      border: 1px solid red;
-      margin: 0 !important;
-      &:hover{
-        opacity: 0.7;
+  li.product{
+    border: 1px solid fade(grey, 50%);
+    margin: 5px !important;
+    padding: 5px !important;
+    box-sizing: border-box !important;
+    flex: 1;
+    @media screen and (max-width: 700px) {
+      number: 1;
+      width: 100% !important;
+      display: block;
+      clear: both;
+    }
+    font-size: calc(15px + 0.5vw);
+    box-sizing: border-box;
+    a{
+      img{
+        margin: 0 !important;
+        &:hover{
+          opacity: 0.7;
+        }
       }
     }
+    .add_to_cart_button{
+      display: none;
+    }
   }
-  .add_to_cart_button{
-    width: 100%;
-    text-align: center;
-    box-sizing: border-box;
-  }
+
 }
 
 .woocommerce-MyAccount-navigation{
@@ -98,5 +102,49 @@
 .wc-nonpurchasable-message, .woocommerce-error{
   a{
     text-decoration: underline;
+  }
+}
+
+.woocommerce #respond input#submit.alt, .woocommerce a.button.alt, .woocommerce button.button.alt, .woocommerce input.button.alt{
+  background: @blue !important;
+  &:hover{
+    background: mix(@blue, @darkGreen, 50%) !important;
+  }
+}
+
+.woocommerce-info{
+  border-top-color: @blue !important;
+}
+.woocommerce-error{
+  border-top-color: @red !important;
+}
+
+.woocommerce{
+  form.login, form.register{
+    border: 1px solid fade(grey, 40%) !important;
+    border-radius: 0px !important;
+  }
+}
+
+.input-text{
+  padding: 10px 18px;
+  border: 1px solid fade(grey, 40%);
+  background: fade(@blue, 20%);
+}
+
+.single_add_to_cart_button, .add_to_cart_button{
+  padding: 0.85em 1em !important;
+}
+
+.woocommerce a.remove{
+  color: @red !important;
+  width: 1.2em;
+  height: 1.2em;
+  display: block;
+  &:hover{
+    color: #fff!important;
+    background: fade(@red, 60%) !important;
+    width: 1.2em;
+    height: 1.2em;
   }
 }

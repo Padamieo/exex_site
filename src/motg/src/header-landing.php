@@ -44,7 +44,7 @@
       dynamic_sidebar( 'motg_landing' );
       echo '</div>';
     }
-
+    echo '<div class="scrollTo"><a href="#about">Read More About</a></div>'
     ?>
 
    </div>

@@ -1,7 +1,7 @@
 
 body {
-  background:#eee;
-  font-size:12px;
+  background: @darkGreen;
+  font-size: 14px;
   line-height:20px;
   font-family: @site_font_family;
   font-weight:normal;
@@ -87,7 +87,7 @@ h6{
   font-weight:normal;
 }
 p{
-  font-size:12px;
+  font-size: 14px;
   color:#454545;
   line-height:18px;
   margin:0px;
@@ -172,7 +172,7 @@ a{
         //need subtler way to indicate page we are on
       }
     }
-
+    //#192928
     #landing-area{
       max-width: 60%;
       background: rgba(23, 41, 41, 0.5);
@@ -188,9 +188,24 @@ a{
         text-align: center;
       }
       p, .textwidget{
-        font-size: calc(12px + 0.8vw) !important;
-        line-height: calc(12px + 2.2vw);
+        font-size: calc(12px + 0.5vw) !important;
+        line-height: calc(12px + 2vw);
       }
+    }
+  }
+  .scrollTo{
+    display: block;
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    font-size: calc(12px + 0.5vw);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    a{
+      color: #fff;
+      text-decoration: none;
     }
   }
 }
@@ -229,7 +244,7 @@ a{
     margin:0px;
     margin-bottom:5px;
     margin-top:5px;
-    color: rgba(187, 0, 1, 0.6);
+    color: fade(@red, 60%);
     text-shadow: 0 0 0.2em #fff;
     .transition(color 0.5s ease);
     &:hover{
@@ -301,8 +316,8 @@ a{
 
       &.current_page_item{
         a{
-          background: rgba(187, 0, 1, 0.4);
-          border: 1px solid rgb(187, 0, 1);
+          background: fade(@red, 40%);
+          border: 1px solid @red;
           color: #fff;
 
         }
@@ -410,7 +425,7 @@ a{
 }
 
 #header{
-  background: #0f1d1d;
+  background: @darkGreen;
   padding: 0px;
   margin: 0;
   background-image: url("../img/background.jpg");
@@ -418,7 +433,7 @@ a{
   background-size: cover;
   //min-height: 39vw;
   background-position: 0px -46vw;
-  display: inline-block;
+  display: block;
   width: 100%;
   background-position-x: 50%;
 
@@ -444,7 +459,8 @@ a{
 
 .page{
   //background: #fff;
-  background-image: url("../img/upfeathers.png");
+  //background-image: url("../img/upfeathers.png");
+  background:@darkGreen;
 }
 
 .type-page, .status-publish{
@@ -464,6 +480,7 @@ a{
   @media screen and (min-width: 1200px) {
     max-width: 1000px;
   }
+  padding-bottom: 40px;
 }
 
 .font{
@@ -513,27 +530,18 @@ a{
 .clearfix { display: block; }
 
 
-.woocommerce{
-  form.login, form.register{
-    border: 1px solid rgba(69, 69, 69, 0.4) !important;
-    border-radius: 0px !important;
-  }
-}
-
-.input-text{
-  padding: 10px 18px;
-  border: 1px solid rgba(69, 69, 69, 0.4);
-  background: rgba(250, 255, 189, 0.4);
-}
-
-
-
-.single_add_to_cart_button, .add_to_cart_button{
-  padding: 1em 1em !important;
-}
-
 .wrap{
   h1{
     color: red!important;
+  }
+}
+
+footer{
+  padding: 20px;
+  #copyright{
+    a,p{
+      color: #fff;
+    }
+
   }
 }

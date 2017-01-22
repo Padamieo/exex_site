@@ -296,4 +296,14 @@ function purchased_limit_notice() {
 }
 add_action( 'woocommerce_single_product_summary', 'purchased_limit_notice', 31 );
 
+
+add_action( 'wp', 'bbloomer_remove_sidebar_product_pages' );
+
+function bbloomer_remove_sidebar_product_pages() {
+if (is_product()) {
+remove_action('woocommerce_sidebar','woocommerce_get_sidebar',10);
+}
+}
+
+
 ?>
