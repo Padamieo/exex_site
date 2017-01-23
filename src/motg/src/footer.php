@@ -14,6 +14,7 @@
 		</p>
 	</div>
 </footer>
+<?php wp_footer(); ?>
 </div><!-- // wrap -->
 </body>
 </html>

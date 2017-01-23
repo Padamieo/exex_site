@@ -20,7 +20,7 @@ function owoo_custom_hide_sales_flash(){
 }
 
 // removes the review tabs per product
-  function remove_reviews_tab($tabs) {
+function remove_reviews_tab($tabs) {
   unset($tabs['reviews']);
   return $tabs;
 }

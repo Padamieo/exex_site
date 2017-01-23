@@ -103,7 +103,9 @@
 	add_filter('excerpt_more', 'new_excerpt_more');
 
   //load in our woocommerce elements
-  include_once(ABSPATH . 'wp-content/themes/motg/functions_woocommerce.php');
+	if (class_exists('woocommerce')) {
+	  include_once(ABSPATH . 'wp-content/themes/motg/functions_woocommerce.php');
+	}
 
   //Disable RSS Feeds functions
   add_action('do_feed', array( $this, 'disabler_kill_rss' ), 1);
@@ -122,16 +124,5 @@
   remove_action( 'wp_head', 'feed_links', 2 ); // General feeds: Post and Comment Feed
 
   include_once(ABSPATH . 'wp-content/themes/motg/hide_comments.php');
-
-  // function mm_style($styles) {
-  //   $styles['new-style'] = 'path_to_css_file/style.css';
-  // return $styles;
-  // }
-  // add_filter('wpmm_styles', 'mm_style');
-  //
-  // function mm_script($styles) {
-  //   $styles['new-style'] = 'path_to_css_file/style.css';
-  //   return $styles;
-  // }
-  // add_filter('wpmm_scripts', 'mm_script');
+	
 ?>
