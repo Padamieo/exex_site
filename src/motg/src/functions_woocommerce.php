@@ -9,14 +9,30 @@ function woocommerce_support() {
 // add our global variable for purchase limit,
 //TODO: this could be moved out to user meta later for per user basis
 function per_customer_limit() {
-    return 4;
+  return 4;
 }
 add_action( 'after_theme_setup', 'per_customer_limit' );
 
 
 add_filter('woocommerce_sale_flash', 'owoo_custom_hide_sales_flash');
 function owoo_custom_hide_sales_flash(){
-  return '<div class="early">Early Bird Price</div>';
+	$postId = get_the_ID();
+	$sale_end_date = ( $date = get_post_meta( $postId, '_sale_price_dates_to', true ) ) ? date_i18n( 'd-m-y', $date ) : '';
+	$add = ( $sale_end_date ? ' : <b>Until</b> '.$sale_end_date : '' );
+	$string = '<div class="early"><div>Early Bird Price'.$add.'</div></div>';
+  return $string;
+}
+
+add_filter( 'woocommerce_get_price_html', 'custom_price_html', 100, 2 );
+function custom_price_html( $price, $product ){
+  global $post;
+  $sales_price_to = get_post_meta($post->ID, '_sale_price_dates_to', true);
+  if(is_single() && $sales_price_to != ""){
+    $sales_price_date_to = date("d-m-y", $sales_price_to);
+    return str_replace( '</ins>', ' </ins> <b>(Until '.$sales_price_date_to.')</b>', $price );
+  }else{
+    return apply_filters( 'woocommerce_get_price', $price );
+  }
 }
 
 // removes the review tabs per product

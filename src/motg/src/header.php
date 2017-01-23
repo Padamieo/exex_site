@@ -25,9 +25,14 @@
 <div id="wrap">
 	<div id="header">
 
-    <?php if ( has_nav_menu( 'user_nav' ) ) { ?>
-      <div id="user-nav"><?php wp_nav_menu( array( 'theme_location' => 'user_nav' ) ); ?></div>
-    <?php } else { ?>
+    <?php if ( has_nav_menu( 'user_nav' ) ) {
+			//wp_nav_menu( menu_with_woocommere_setup() ); //this needs work
+
+			?>
+    		<div id="user-nav"><?php wp_nav_menu( array( 'theme_location' => 'user_nav' ) ); ?><p>countdown</p></div>
+			<?php
+
+    } else { ?>
       <div id="user-nav"><ul><?php wp_list_pages("depth=1&title_li=");  ?></ul></div>
     <?php } ?>
 
@@ -37,7 +42,7 @@
 
 		<div id="title">
 			<a href="<?php echo home_url(); ?>/" title="<?php get_bloginfo( 'name' ); ?>" rel="home">
-			     <p class="someSelector"><?php bloginfo('sitename'); ?></p>
+				<p class="someSelector"><?php bloginfo('sitename'); ?></p>
 			</a>
 		</div>
 
