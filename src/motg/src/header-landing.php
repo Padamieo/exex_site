@@ -18,7 +18,9 @@
 	<div id="header">
 
     <?php if ( has_nav_menu( 'user_nav' ) ) { ?>
-      <div id="user-nav"><?php wp_nav_menu( array( 'theme_location' => 'user_nav' ) ); ?></div>
+      <div id="user-nav"><?php wp_nav_menu( array( 'theme_location' => 'user_nav' ) ); ?>
+        <div class="countdown"><p><?php echo countdown_cal(); ?></p></div>
+      </div>
     <?php } else { ?>
       <div id="user-nav"><ul><?php wp_list_pages("depth=1&title_li=");  ?></ul></div>
     <?php } ?>

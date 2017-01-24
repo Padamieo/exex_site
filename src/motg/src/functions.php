@@ -136,6 +136,29 @@
 		return $inputs;
 	}
 
+  //return the date time the event starts
+  //this can be improved by having it stored as a theme setting
+  function time_till_event(){
+    //https://developer.wordpress.org/themes/customize-api/customizer-objects/
+    return '2017-06-24 12:00';
+  }
+
+  //takes time_till_event and shows a countdown
+  function countdown_cal(){
+    $time_till = time_till_event();
+
+    $date = gmdate('U', strtotime($time_till));
+    $nice_date = gmdate('d/m/y', strtotime($time_till));
+
+    $diff = $date - gmdate('U');
+
+    $diff_days = floor($diff / (24 * 60 * 60));
+    //$diff_hours = floor($diff % (24 * 60 * 60) / 3600);
+
+    return 'Event In: '.$diff_days.' Days ('.$nice_date.')';
+  }
+
+
   //Disable RSS Feeds functions
   add_action('do_feed', array( $this, 'disabler_kill_rss' ), 1);
   add_action('do_feed_rdf', array( $this, 'disabler_kill_rss' ), 1);

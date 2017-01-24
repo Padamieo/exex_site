@@ -28,8 +28,12 @@
     <?php if ( has_nav_menu( 'user_nav' ) ) {
 			//wp_nav_menu( menu_with_woocommere_setup() ); //this needs work
 
+
 			?>
-    		<div id="user-nav"><?php wp_nav_menu( array( 'theme_location' => 'user_nav' ) ); ?><p>countdown</p></div>
+    		<div id="user-nav">
+          <?php wp_nav_menu( array( 'theme_location' => 'user_nav' ) ); ?>
+          <div class="countdown"><p><?php echo countdown_cal(); ?></p></div>
+        </div>
 			<?php
 
     } else { ?>

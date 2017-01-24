@@ -10,7 +10,6 @@
   },
   "private": true,
   "devDependencies": {
-    "ninja-forms": "svn+http://plugins.svn.wordpress.org/ninja-forms/#3.0.24",
     "wordpress-seo": "svn+http://plugins.svn.wordpress.org/wordpress-seo/#3.6.1",
     "bbpress": "svn+http://plugins.svn.wordpress.org/bbpress/#2.5.12",
     "baffle": "https://github.com/camwiegert/baffle.git",

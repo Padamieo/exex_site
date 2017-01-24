@@ -291,6 +291,7 @@ a{
   margin: 0px;
   background: rgba(23, 41, 41, 0.5);
   ul{
+    padding-left: 1vw !important;
     clear:left;
     float:left;
     list-style:none;
@@ -298,7 +299,9 @@ a{
     padding:0;
     position:relative;
     text-align:center;
-    // width: 100%;
+    @media screen and (max-width: 700px) {
+      width: 100%;
+    }
     li{
       //font-size: calc(12px + 0.5vw);
       font-size: 12px;
@@ -348,6 +351,22 @@ a{
         text-decoration: none !important;
       }
 
+    }
+  }
+
+  .countdown{
+    @media screen and (max-width: 700px) {
+      display: none;
+    }
+    display: inline-block;
+    float: right;
+    // border: 1px solid red;
+    padding: 0.5vw 1vw;
+    p{
+      color: #fff;
+      margin: 0.3vw;
+      padding-top: 0px;
+      padding-bottom: 0px;
     }
   }
 }
