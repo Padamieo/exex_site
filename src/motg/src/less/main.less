@@ -357,8 +357,25 @@ a{
   overflow: hidden;
   position: relative;
 
-  padding-top: 1vw;
-  padding-bottom: 2vw;
+  margin-top: 1vw;
+  margin-bottom: 2vw;
+	//background: rgba(0,0,0,0.5);
+
+	&::before{
+		// content: ' ';
+		// background-image: url(../img/background.jpg);
+		// background-repeat: no-repeat;
+		// background-size: cover;
+		// background-position: 0px -46vw;
+		// width: 100%;
+		// height: 100%;
+		// background-position-x: 50%;
+		// background-origin: border-box;
+		// display: block;
+		// position: absolute;
+		// -webkit-filter: url(#svg-blur);
+	}
+
 
   .transition(margin 0.5s ease);
 
@@ -389,6 +406,10 @@ a{
       padding:0;
       position:relative;
       right:50%;
+			margin: 1vw;
+			//background: rgba(0,0,0,0.5);
+
+
       @media screen and (max-width: 700px) {
         width: 100%;
       }
@@ -403,7 +424,7 @@ a{
 
       a{
         display:block;
-        margin:1vw;
+        //margin:1vw;
         padding:1vw 3vw;
         border: 1px solid #fff;
         background:rgba(255,255,255,0.2);
@@ -437,8 +458,6 @@ a{
   background-position-x: 50%;
 
   -webkit-animation: filter-animation 100s infinite;
-
-
 }
 
 @-webkit-keyframes filter-animation {

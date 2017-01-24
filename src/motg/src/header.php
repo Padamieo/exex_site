@@ -28,6 +28,7 @@
     <?php if ( has_nav_menu( 'user_nav' ) ) {
 			//wp_nav_menu( menu_with_woocommere_setup() ); //this needs work
 
+
 			?>
     		<div id="user-nav"><?php wp_nav_menu( array( 'theme_location' => 'user_nav' ) ); ?><p>countdown</p></div>
 			<?php
@@ -48,8 +49,22 @@
 
     <?php if ( has_nav_menu( 'main_nav' ) ) { ?>
     <div id="nav"><?php wp_nav_menu( array( 'theme_location' => 'main_nav' ) ); ?></div>
+
+<svg id="svg-filter">
+  <filter id="svg-blur">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="4"></feGaussianBlur>
+  </filter>
+</svg>
+
     <?php } else { ?>
     <div id="nav"><ul><?php wp_list_pages("depth=1&title_li=");  ?></ul></div>
+
+<svg id="svg-filter">
+  <filter id="svg-blur">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="4"></feGaussianBlur>
+  </filter>
+</svg>
+
     <?php } ?>
 
    </div>
