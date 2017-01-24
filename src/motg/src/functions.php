@@ -107,31 +107,31 @@
 	  include_once(ABSPATH . 'wp-content/themes/motg/functions_woocommerce.php');
 	}
 
-	function menu_with_woocommere_setup(){
+	function user_menu_change(){
 	  if (class_exists('woocommerce')) {
 
-	    // if(get_option('woocommerce_myaccount_page_id') == get_query_var('page_id')){
-	    //   $class_input = 'menu-item menu-item-type-post_type menu-item-object-page page-item-'.get_query_var('page_id').' current_page_item';
-	    // }else{
-	    //   $class_input = 'menu-item menu-item-type-post_type menu-item-object-page';
-	    // }
-			//
-	    // if ( is_user_logged_in() ) {
-	    //   $title = 'My Account';
-	    // }else{
-	    //   $title = 'Login';
-	    // }
-			//
-	    // $account_link = '<li class="'.$class_input.' red my_account" ><a href="'.get_permalink( get_option('woocommerce_myaccount_page_id') ).'"><span>'.$title.'</span></a></li>';
-	    // $cart_link = '<li class="yellow cart_link"><a class="cart-contents" href="'.WC()->cart->get_cart_url().'" title=""><span>Cart</span></a></li>';
-	    // $inputs = array(
-	    //   'container_class' => 'container',
-	    //   'theme_location' => 'user-menu'
-	    //   // 'items_wrap'		=> '<ul id="%1$s" class="%2$s"> '.$account_link.' '.$cart_link.' %3$s</ul>'
-	    // );
+	    if(get_option('woocommerce_myaccount_page_id') == get_the_ID()){
+	      $class_input = 'menu-item menu-item-type-post_type menu-item-object-page page-item-'.get_the_ID().' current_page_item';
+	    }else{
+	      $class_input = 'menu-item menu-item-type-post_type menu-item-object-page';
+	    }
+
+	    if ( is_user_logged_in() ) {
+	      $title = 'My Account';
+	    }else{
+	      $title = 'Login / Register';
+	    }
+
+			$account_link = '<li class="'.$class_input.'" ><a href="'.get_permalink( get_option('woocommerce_myaccount_page_id') ).'">'.$title.'</a></li>';
+
+	    $inputs = array(
+	      'container_class' => 'container',
+	      'theme_location' => 'user_nav',
+	      'items_wrap'		=> '<ul id="%1$s" class="%2$s"> '.$account_link.' %3$s</ul>'
+	    );
 
 	  }else{
-	    //$inputs = array( 	'container_class' => 'container', 'theme_location' => 'user_nav');
+	    $inputs = array( 	'container_class' => 'container', 'theme_location' => 'user_nav');
 	  }
 		return $inputs;
 	}

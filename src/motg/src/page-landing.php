@@ -1,5 +1,5 @@
 <?php /* Template Name: landing page */ ?>
-<?php get_header('landing'); ?>
+<?php get_header(); ?>
 
 	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
