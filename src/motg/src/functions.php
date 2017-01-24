@@ -107,34 +107,51 @@
 	  include_once(ABSPATH . 'wp-content/themes/motg/functions_woocommerce.php');
 	}
 
-	function user_menu_change(){
-	  if (class_exists('woocommerce')) {
+  // changes text on account button when logged in.
+  function user_menu_change(){
+    if (class_exists('woocommerce')) {
 
-	    if(get_option('woocommerce_myaccount_page_id') == get_the_ID()){
-	      $class_input = 'menu-item menu-item-type-post_type menu-item-object-page page-item-'.get_the_ID().' current_page_item';
-	    }else{
-	      $class_input = 'menu-item menu-item-type-post_type menu-item-object-page';
-	    }
+      if(get_option('woocommerce_myaccount_page_id') == get_the_ID()){
+        $class_input = 'menu-item menu-item-type-post_type menu-item-object-page page-item-'.get_the_ID().' current_page_item';
+      }else{
+        $class_input = 'menu-item menu-item-type-post_type menu-item-object-page';
+      }
 
-	    if ( is_user_logged_in() ) {
-	      $title = 'My Account';
-	    }else{
-	      $title = 'Login / Register';
-	    }
+      if ( is_user_logged_in() ) {
+        $title = 'My Account';
+      }else{
+        $title = 'Login / Register';
+      }
 
-			$account_link = '<li class="'.$class_input.'" ><a href="'.get_permalink( get_option('woocommerce_myaccount_page_id') ).'">'.$title.'</a></li>';
+  		$account_link = '<li class="'.$class_input.'" ><a href="'.get_permalink( get_option('woocommerce_myaccount_page_id') ).'">'.$title.'</a></li>';
 
-	    $inputs = array(
-	      'container_class' => 'container',
-	      'theme_location' => 'user_nav',
-	      'items_wrap'		=> '<ul id="%1$s" class="%2$s"> '.$account_link.' %3$s</ul>'
-	    );
+      $inputs = array(
+        'theme_location' => 'user_nav',
+        'items_wrap'		=> '<ul id="%1$s" class="%2$s"> '.$account_link.' %3$s</ul>'
+      );
 
-	  }else{
-	    $inputs = array( 	'container_class' => 'container', 'theme_location' => 'user_nav');
-	  }
-		return $inputs;
-	}
+    }else{
+      $inputs = array( 	'container_class' => 'container', 'theme_location' => 'user_nav');
+    }
+  	return $inputs;
+  }
+
+  //changes the about page link only for the landing page
+  function change_about($item_output, $item) {
+    if(is_page_landing() !== false){
+      if ('About' == $item->title) {
+        if($item->object_id == get_the_ID()){
+          $url = '#about';
+        }else{
+          $url = $item->url;
+        }
+          return '<a href="'.$url.'">'.$item->title.'</a>';
+      }
+    }
+    return $item_output;
+  }
+  add_filter( 'walker_nav_menu_start_el','change_about', 10, 2 );
+
 
   //return the date time the event starts
   //this can be improved by having it stored as a theme setting
@@ -146,18 +163,25 @@
   //takes time_till_event and shows a countdown
   function countdown_cal(){
     $time_till = time_till_event();
-
     $date = gmdate('U', strtotime($time_till));
     $nice_date = gmdate('d/m/y', strtotime($time_till));
-
     $diff = $date - gmdate('U');
-
     $diff_days = floor($diff / (24 * 60 * 60));
     //$diff_hours = floor($diff % (24 * 60 * 60) / 3600);
-
     return 'Event In: '.$diff_days.' Days ('.$nice_date.')';
   }
 
+  // adds class to landing page when template used
+  function is_landing_page(){
+    global $template;
+    return ( is_page_landing() !== false ? 'class="landing"' : '');
+  }
+
+  // determines if landing page template is used
+  function is_page_landing(){
+    global $template;
+    return strpos($template, 'page-landing');
+  }
 
   //Disable RSS Feeds functions
   add_action('do_feed', array( $this, 'disabler_kill_rss' ), 1);
