@@ -9,7 +9,7 @@
         <?php } ?>
 
    			<div class="pagebody">
-          <h1 class="font"><?php the_title(); ?></h1>
+          <h1 class="kont grey"><?php the_title(); ?></h1>
      		 	<?php the_content(); ?>
 					<?php wp_link_pages(); ?>
 					<?php //comments_template(); ?>

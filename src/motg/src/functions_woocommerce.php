@@ -13,18 +13,23 @@ function per_customer_limit() {
 }
 add_action( 'after_theme_setup', 'per_customer_limit' );
 
+function style_shop_page_title( $page_title ) {
+  if( 'Shop' == $page_title) {
+    return '<span class="kont grey">'.$page_title.'</span>';
+  }
+}
+add_filter( 'woocommerce_page_title', 'style_shop_page_title');
 
-add_filter('woocommerce_sale_flash', 'owoo_custom_hide_sales_flash');
-function owoo_custom_hide_sales_flash(){
+function add_sale_info_product(){
 	$postId = get_the_ID();
 	$sale_end_date = ( $date = get_post_meta( $postId, '_sale_price_dates_to', true ) ) ? date_i18n( 'd-m-y', $date ) : '';
 	$add = ( $sale_end_date ? ' : <b>Until</b> '.$sale_end_date : '' );
 	$string = '<div class="early"><div>Early Bird Price'.$add.'</div></div>';
   return $string;
 }
+add_filter('woocommerce_sale_flash', 'add_sale_info_product');
 
-add_filter( 'woocommerce_get_price_html', 'custom_price_html', 100, 2 );
-function custom_price_html( $price, $product ){
+function add_sale_info_product_page( $price, $product ){
   global $post;
   $sales_price_to = get_post_meta($post->ID, '_sale_price_dates_to', true);
   if(is_single() && $sales_price_to != ""){
@@ -34,6 +39,7 @@ function custom_price_html( $price, $product ){
     return apply_filters( 'woocommerce_get_price', $price );
   }
 }
+add_filter( 'woocommerce_get_price_html', 'add_sale_info_product_page', 100, 2 );
 
 // removes the review tabs per product
 function remove_reviews_tab($tabs) {
