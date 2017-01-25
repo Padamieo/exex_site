@@ -1,18 +1,27 @@
 
+
+// TODO: find a way to do this via function so its no loaded then hidden
+#sidebar{
+		display: none;
+}
+
 .early{
+	position: absolute;
+	width: 100%;
+	top: -10px;
+	left: -10px;
 	div{
 		position: absolute;
-    /* right: 0; */
     border-radius: 25px;
-    background: @blue;
+    background: #6BB6D3;
     padding: 10px;
     font-size: small;
-    color: @white;
+    color: #fff;
     font-weight: bold;
     text-align: center;
     width: auto;
     margin: 0 auto;
-    // width: 100px;
+    z-index: 100;
 	}
 }
 
@@ -57,6 +66,7 @@ ul.products{
     border: 1px solid fade(grey, 50%);
     margin: 5px !important;
     padding: 5px !important;
+		margin-top: 20px !important;
     box-sizing: border-box !important;
     flex: 1;
     @media screen and (max-width: 700px) {
@@ -78,6 +88,15 @@ ul.products{
     .add_to_cart_button{
       display: none;
     }
+		h3{
+			font-size: 2em !important;
+		}
+		// &:hover{
+		// 	h3{
+		// 		&:extend(.rune);
+		// 		&:extend(.grey);
+		// 	}
+		// }
   }
 
 }
@@ -137,6 +156,21 @@ ul.products{
   border: 1px solid fade(grey, 40%);
   background: fade(@blue, 20%);
 }
+
+.woocommerce form .form-row select{
+	padding: 10px 18px;
+  border: 1px solid fade(grey, 40%);
+  background: fade(@blue, 20%);
+}
+
+.select2-container .select2-choice{
+  background: fade(@blue, 20%) !important;
+	&>.select2-chosen{
+	 padding: 5px 10px;
+	 border: 1px solid fade(grey, 40%);
+	}
+}
+
 
 .single_add_to_cart_button, .add_to_cart_button{
   padding: 0.85em 1em !important;

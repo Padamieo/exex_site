@@ -185,7 +185,7 @@ a{
     }
     #landing-area{
       max-width: 60%;
-      background: rgba(23, 41, 41, 0.5);
+      background: rgba(23, 41, 41, 0.6);
       @media screen and (max-width: 700px) {
         max-width: 100%;
       }
@@ -301,7 +301,7 @@ a{
   position: relative;
   padding: 0px;
   margin: 0px;
-  background: rgba(23, 41, 41, 0.5);
+  background: rgba(23, 41, 41, 0.6);
   ul{
     padding-left: 1vw !important;
     clear:left;
@@ -438,7 +438,7 @@ a{
       position:relative;
       right:50%;
 			margin: 1vw;
-			//background: rgba(0,0,0,0.5);
+			background: rgba(0,0,0,0.3);
 
 
       @media screen and (max-width: 700px) {
@@ -447,9 +447,9 @@ a{
 
       &.current_page_item{
         a{
-          background: rgba(187, 0, 1, 0.4);
-          border: 1px solid rgb(187, 0, 1);
-          color: #fff;
+          background: fade( @red, 40%);
+          border: 1px solid @red;
+          color: @white;
         }
       }
 
@@ -457,9 +457,9 @@ a{
         display:block;
         //margin:1vw;
         padding:1vw 3vw;
-        border: 1px solid #fff;
-        background:rgba(255,255,255,0.2);
-        color: #fff;
+        border: 1px solid @white;
+        background: fade( @white, 40% );
+        color: @white;
         .transition(background-color 0.5s ease);
         .transition(border 0.5s ease);
 
@@ -488,18 +488,27 @@ a{
   width: 100%;
   background-position-x: 50%;
 
-  -webkit-animation: filter-animation 100s infinite;
+  -webkit-animation: filter-animation 10s infinite;
 	padding-bottom: 1px;
 }
 
+//TODO: i am not set on this
 @-webkit-keyframes filter-animation {
   0% {
     -webkit-filter: contrast(1);
     filter: contrast(1);
   }
+  45% {
+    -webkit-filter: contrast(1.01);
+    filter: contrast(1.01);
+  }
   50% {
-    // -webkit-filter: contrast(2);
-    // filter: contrast(2);
+    -webkit-filter: contrast(1.5);
+    filter: contrast(1.5);
+  }
+  55% {
+    -webkit-filter: contrast(1.01);
+    filter: contrast(1.01);
   }
   100% {
     -webkit-filter: contrast(1);
@@ -508,8 +517,6 @@ a{
 }
 
 .page{
-  //background: #fff;
-  //background-image: url("../img/upfeathers.png");
   background:@darkGreen;
 }
 

@@ -137,7 +137,7 @@ function guest_info_checkout( $checkout ) {
         'label'         => __($guest." Dietary Requirments"),
         'placeholder'   => __(''),
         'options'       => array(
-          'standard' => __('None', 'woocommerce' ),
+          'none' => __('None', 'woocommerce' ),
           'vegitarian' => __('Vegitarian', 'woocommerce' ),
           'vegan' => __('Vegan', 'woocommerce' ),
           'allergies' => __('Allergies (please specify in Order Notes)', 'woocommerce' ),
