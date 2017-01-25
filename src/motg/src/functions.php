@@ -189,6 +189,7 @@
   add_action('do_feed_rss', array( $this, 'disabler_kill_rss' ), 1);
   add_action('do_feed_rss2', array( $this, 'disabler_kill_rss' ), 1);
   add_action('do_feed_atom', array( $this, 'disabler_kill_rss' ), 1);
+
   if(function_exists('disabler_kill_rss')) {
   	function disabler_kill_rss(){
   		wp_die( _e("No feeds available.", 'ippy_dis') );
@@ -200,5 +201,12 @@
   remove_action( 'wp_head', 'feed_links', 2 ); // General feeds: Post and Comment Feed
 
   include_once(ABSPATH . 'wp-content/themes/motg/hide_comments.php');
+
+	//this needs some work
+	add_shortcode('thumbnail','thumbnail_in_content');
+	function thumbnail_in_content( $atts ) {
+		global $post;
+		return get_the_post_thumbnail( $post->ID );
+	}
 
 ?>

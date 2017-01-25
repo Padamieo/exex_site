@@ -4,10 +4,6 @@
 
    		<div id="page-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-        <?php if ( has_post_thumbnail() ) { ?>
-					<div class="niss-image"><?php the_post_thumbnail( 'detail-image' );  ?></div>
-        <?php } ?>
-
    			<div class="pagebody">
           <h1 class="kont grey"><?php the_title(); ?></h1>
      		 	<?php the_content(); ?>
@@ -15,7 +11,13 @@
 					<?php //comments_template(); ?>
      		</div>
 
-       </div>
+			</div>
+
+			<?php
+			if ( has_post_thumbnail() ) {
+				echo '<div class="featured-image">'.the_post_thumbnail( 'detail-image' ).'</div>';
+			}
+			?>
 
 		<?php endwhile; endif; ?>
 
