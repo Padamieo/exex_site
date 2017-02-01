@@ -18,7 +18,7 @@
 
 			 <?php
 			 if ( has_post_thumbnail() ) {
-				 echo '<div class="featured-image">'.the_post_thumbnail( 'detail-image' ).'</div>';
+				//echo '<div class="featured-image">'.the_post_thumbnail( 'detail-image' ).'</div>';
 			 }
 			 ?>
 
