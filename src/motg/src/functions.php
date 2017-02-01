@@ -206,7 +206,39 @@
 	add_shortcode('thumbnail','thumbnail_in_content');
 	function thumbnail_in_content( $atts ) {
 		global $post;
-		return get_the_post_thumbnail( $post->ID );
+        if ( has_post_thumbnail() ) {
+
+            $var = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+            $styles = 'background-image:url('.$var[0].');';
+
+            $array = array('height');
+            foreach ($array as &$current) {
+                if($atts[$current]){
+                    $styles = $styles." ".$current.":".$atts[$current].";";
+                }
+            }
+
+            if($atts['title']){
+                $array = array('text-align', 'font-size');
+                $present = false;
+                foreach ($array as &$current) {
+                    if($atts[$current]){
+                        $present = true;
+                        $titlestyles = $titlestyles." ".$current.":".$atts[$current].";";
+                    }
+                }
+                $addstyles = ($present ? 'style="'.$titlestyles.'"' : '' );
+                
+                $content = "<p ".$addstyles." >".$atts['title']."</p>";
+            }
+
+            $construct = '<div class="featured-insert" style="'.$styles.'">'.$content.'</div>';
+
+            if($atts['url']){
+                $construct = '<a class="featured clearfix" href="'.$atts['url'].'">'.$construct.'</a>';
+            }
+        }
+        return $construct;
 	}
 
 ?>

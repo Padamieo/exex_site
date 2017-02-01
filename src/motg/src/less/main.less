@@ -541,16 +541,29 @@ a{
 }
 
 
-//WIP
-.featured-image{
+
+.featured-insert{
 	width: 100%;
-	height: auto;
-	max-height: 200px;
+	min-height: 100px;
 	overflow: hidden;
-	img{
-		width: 100%;
-		background-size: cover;
-	}
+    background-position: 50%;
+    // background-size: cover;
+    p{
+        padding: 10px;
+        text-decoration: none;
+    }
+    &:hover{
+        text-decoration: none;
+        p{
+            background: rgba(255,255,255,0.5);
+        }
+    }
+}
+
+a.featured{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-decoration: none;
 }
 
 .clearfix:after {
