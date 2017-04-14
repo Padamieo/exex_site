@@ -28,7 +28,8 @@ module.exports = function(grunt){
             'woocommerce/**',
             'bbpress/**',
             'wordpress-social-login/**',
-            'contact-form-7/**'
+            'contact-form-7/**',
+            'woo-order-export-lite/**'
 					],
 					dest: 'build/wp-content/plugins/',
 					nonull: false,

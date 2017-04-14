@@ -2,7 +2,7 @@
   "name": "exex_sites",
   "version": "0.0.1",
   "dependencies": {
-    "wordpress": "4.7.2",
+    "wordpress": "4.7.3",
     "jquery": "~1.10.2",
     "masonry": "3.3.2",
     "fancyBox": "2.1.5",
@@ -16,6 +16,7 @@
     "woocommerce": "svn+http://plugins.svn.wordpress.org/woocommerce/#2.6.13",
     "wp-maintenance-mode": "svn+http://plugins.svn.wordpress.org/wp-maintenance-mode/#2.0.9",
     "wordpress-social-login" : "svn+https://plugins.svn.wordpress.org/wordpress-social-login/#2.2.3",
-    "contact-form-7": "svn+https://plugins.svn.wordpress.org/contact-form-7/#4.6"
+    "contact-form-7": "svn+https://plugins.svn.wordpress.org/contact-form-7/#4.6",
+    "woo-order-export-lite": "svn+https://plugins.svn.wordpress.org/woo-order-export-lite/"
   }
 }
